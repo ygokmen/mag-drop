@@ -1,0 +1,12 @@
+name = "Goko drop magz";
+picture = "magmod.paa";
+description = "Goko drop magz";
+logo = "magmod.paa";
+logoOver = "magmod.paa";
+tooltip = "Goko drop magz";
+tooltipOwned = "Goko drop magz Owned";
+overview = "Simulate empty magazine";
+author = "the0utsider";
+overviewPicture = "magmod.paa";
+overviewText = "Goko drop magz";
+overviewFootnote = "";
