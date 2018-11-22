@@ -1,7 +1,14 @@
+/* 
+ *	goko mag drop add-on v1.21
+ *	author: gokmen 'the0utsider'
+ *	latest update: 11-22-2018
+ *	website: https://github.com/the0utsider/mag-drop
+*/
 
-
+/// init variables
 gokoMag_var_magLifeTime = profileNamespace getVariable ["gokoMag_var_magLifeTime", 600];
 
+/// cba options
 if(isClass(configFile >> "CfgPatches" >> "cba_settings")) then 
 {
 	[] spawn 
@@ -19,6 +26,7 @@ if(isClass(configFile >> "CfgPatches" >> "cba_settings")) then
 	};	
 };
 
+/// main function
 goko_fnc_reloadingOver9000 =
 {
 	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
@@ -28,10 +36,11 @@ goko_fnc_reloadingOver9000 =
 	
 	private _bOutofAmmo = getArray(configfile >> "CfgWeapons" >> _muzzle >> "magazines") arrayIntersect magazines _unit isEqualTo [];
 	if (_bOutofAmmo) exitWith{};
-	
+		
 	_null = _this spawn {
 		private _actor = _this#0;
 		private _muzzle = _this#2;
+		private _magazine = _this#5;
 		private _saveCycles = if (isPlayer _actor) then {0.05} else {0.5};
 		
 		while {alive _actor && currentMuzzle _actor isEqualTo _muzzle} do {
@@ -41,10 +50,12 @@ goko_fnc_reloadingOver9000 =
 		if (!alive _actor || !(currentMuzzle _actor isEqualTo _muzzle)) exitwith{};
 		
 		waitUntil {
-			sleep (0.3 + random 0.7);
+			sleep (0.4 + random 0.6);
 			if (!alive _actor) exitwith {true};
-			private _dirAndVelocity = (velocity _actor vectorAdd [0, -0.1 + random 0.2, -1 + random 2]) vectorMultiply (1 + random 1);
-			[_actor, _dirAndVelocity] remoteExecCall ["goko_fnc_dropmagout"];
+			private _dirAndVelocity = (velocity _actor vectorAdd [0, -0.1 + random 0.2, -1 + random 2]) vectorMultiply (1 + random 0.4);
+			private _getMagazineP3d = if (getText(configfile >> "CfgMagazines" >> _magazine >> "model") isEqualTo "\A3\weapons_F\ammo\mag_univ.p3d") then 
+			{"\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"} else {getText(configfile >> "CfgMagazines" >> _magazine >> "model")};
+			[_actor, _dirAndVelocity, _getMagazineP3d] remoteExecCall ["goko_fx_dropMag"];
 			sleep 0.5;
 			private _unitFeetPos = _actor modelToWorldVisualWorld [0,0,-3];
 			private _impactOnGround = selectRandom ["goko_dropmagz\sfx\gear_impact01.wav", "goko_dropmagz\sfx\gear_impact02.wav",
@@ -56,32 +67,34 @@ goko_fnc_reloadingOver9000 =
 	};
 };
 
-goko_fnc_dropmagout = 
+/// particle effect
+goko_fx_dropMag = 
 { 
 	_unit = _this select 0; 
 	_velocity = _this select 1; 
+	_model = _this select 2;
 
 	_magout = "#particlesource" createVehicleLocal (getposATL _unit); 
 	_magout setParticleParams 
 	[ 
-		["\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d", 1, 0, 1], //shape name 
+		[_model, 1, 0, 1], //shape name 
 		"", //animation name 
 		"SpaceObject", //type 
 		0, gokoMag_var_magLifeTime, //timer period & life time 
 		[0, 0, 0], //position 
 		_velocity, //moveVeocity 
-		random 1, 1, 0.1, 0, //rotation velocity, weight, volume, rubbing 
+		random 0.4, 1, 0.2, 0, //rotation velocity, weight, volume, rubbing 
 		[1], //size 
 		[[1,1,1,1]], //color 
 		[10], //animationPhase (animation speed in config) 
-		0.1, //randomdirection period 
+		0.5, //randomdirection period 
 		0.05, //random direction intensity 
 		"", //onTimer 
 		"", //before destroy 
 		"", //object 
 		0, //angle 
 		false, //on surface 
-		0.4, //bounce on surface 
+		0.25, //bounce on surface 
 		[[1,0,0,0]] //randomizations I dont need 
 	]; 
 
