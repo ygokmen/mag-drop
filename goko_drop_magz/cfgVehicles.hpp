@@ -11,7 +11,7 @@ class CfgVehicles
 		{
 			class goko_dropmagz
 			{
-				init = "_this execVM '\goko_dropmagz\initialize\goko_loadup.sqf'";
+				init = "_this execVM '\goko_drop_magz\initialize\goko_loadup.sqf'";
 			};
 		};
 	};

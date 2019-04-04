@@ -6,6 +6,23 @@ If reloaded weapon supports proxy magazine tech, mod will get the magazine model
 This mod uses arma3's own physx based particle system. Performance impact is zero to none.
 
 [B]ChangeLog:[/B] [SPOILER]
+ V1.23alpha - 04-04-2019;
+  - *NEW*: Persistent decals throughout mission time
+  - *NEW*: Using BIS' super simple object method to simulate dropped magazines
+  - *NEW*: Rewritten code and functionality for better simulation and efficiency
+  - *NEW*: particleSource detection and protection method (no more flying mags)
+  - Added: CBA WaitUntilAndExecute to improve mod performance
+  - Fixed: Red Hammer Studios' mods working again
+  - Fixed: models now stand on correct alignment on surfaces 
+  - Fixed: Multiple particle source's being stacked on model 
+  - Fixed: Soldier randomly spawning magazines is fixed for good
+  - Tweak: sound emission max hearing range decreased to 30m
+  - Tweak: Particle3D simulation weight and air friction adjusted
+  - Tweak: attachTo model memory points
+  
+ V1.22 - 03-21-2019;
+  - Fixed: Launchers spawning rocket model on reload
+
  V1.21 - 11-22-2018;
   - Added: A3 proxy magazine technology support
   
