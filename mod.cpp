@@ -1,11 +1,11 @@
-name = "Goko mag drop";
+name = "Goko Magazine Simulation";
 picture = "magmod.paa";
-description = "Goko mag drop";
+description = "Goko Magazine Simulation";
 logo = "magmod.paa";
 logoOver = "magmod.paa";
-tooltip = "Goko mag drop";
-tooltipOwned = "Goko mag drop";
-overview = "Magazine decal simulation";
+tooltip = "Goko Magazine Simulation";
+tooltipOwned = "Goko Magazine Simulation";
+overview = "Goko mag drop";
 author = "the0utsider";
 overviewPicture = "magmod.paa";
 overviewText = "Goko mag drop";
