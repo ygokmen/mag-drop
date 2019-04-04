@@ -4,7 +4,7 @@
  *	Repo: github.com/the0utsider/mag-drop
  *
  *	Main hook using fired EH since muzzle reload EH do not exist (yet) on stable branch
- *	Detect reload, pass required params
+ *	Detect reload, pass required params to particle3dfx function
 */
 
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];

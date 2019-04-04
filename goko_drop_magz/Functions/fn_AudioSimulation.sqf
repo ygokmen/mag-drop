@@ -26,7 +26,7 @@ playsound3d
 [
 	_SoundSamples, 
 	_unit,
-	false,
+	false,					//buggy
 	_soldierFeetPos,		// position above sea level
 	1.2,					// volume dB
 	0.8 + random 0.6,		// sound pitch
