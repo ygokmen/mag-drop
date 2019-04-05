@@ -4,7 +4,7 @@
  *	Repo: github.com/the0utsider/mag-drop
  *
  *	Main hook using fired EH since muzzle reload EH do not exist (yet) on stable branch
- *	Detect reload, pass required params to particle3dfx function
+ *	Detect reload, pass required params
 */
 
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
@@ -37,8 +37,11 @@ _null = _this spawn
 		if (!alive _actor) exitwith {true};
 
 		private _addVelocity = (velocity _actor vectorMultiply 1.1) vectorAdd [-0.4 + random 0.8, -0.4 + random 0.8, 0];
-		private _existingParticleFxCount = {typeOf _x == "#particleSource"} count attachedObjects _actor;
-
+		
+		/// pass this count of array, it will become index selector after incrementing attached objects array
+		private _existingAttachedObjects = (count attachedObjects _actor);
+		
+		/// config check for proper mag models 
 		private _bMagtypeIsRHS = (getText(configfile >> "CfgMagazines" >> _magazine >> "author") == "Red Hammer Studios");
 		private _getMagazineP3D = if (_bMagtypeIsRHS) then
 		{
@@ -52,7 +55,7 @@ _null = _this spawn
 		};
 		/// Store or update magazine model name in object's namespace variable
 		_actor setVariable ["GokoMD_VAR_magazineModelNamePistol",_getMagazineP3D];
-		[_actor, _addVelocity, _getMagazineP3D, _existingParticleFxCount] remoteExecCall ["GokoMD_fnc_Pistol_Particle3DFx"];
+		[_actor, _addVelocity, _getMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Pistol_Particle3DFx"];
 		true;
 	};
 };
