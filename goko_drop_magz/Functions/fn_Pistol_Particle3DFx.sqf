@@ -31,8 +31,8 @@ _popOutMagazine setParticleParams
 	/*Angle*/				0,
 	/*onSurface*/			false,
 	/*bounceOnSurface*/		0.21,
-	/*emissiveColor*/		[[0,0,0,0]],
-	/*3D Array Vector dir*/	[random 0.5, random -0.5, -1 + random 2]
+	/*emissiveColor*/		[[0,0,0,0]]
+	/*3D Array Vector dir	[random 0.5, random -0.5, -1 + random 2] !WARNING! THIS IS NOT AVAILABLE ON STABLE(YET)!!! */
 ];
 private _modelMemoryPoints = selectRandom ["lwrist", "rwrist"]; 
 _popOutMagazine setDropInterval 10; 
