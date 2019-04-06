@@ -1,9 +1,3 @@
-Empty mag throw simulation: while reloading a depleted mag (ammo null), A.I and player both, unit will drop an empty magazine on ground. 
-Simulation uses relative velocity with randomization and sound effect when hit on ground. 
-
-If reloaded weapon supports proxy magazine tech, mod will get the magazine model accordingly. If not, it will spawn a generic rifle magazine model.
-
-This mod uses arma3's own physx based particle system. Performance impact is zero to none.
 
 [B]ChangeLog:[/B] [SPOILER]
  V1.23 - 04-06-2019;

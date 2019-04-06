@@ -1,9 +1,9 @@
-# Goko magazine simulation for A3
-**Author:** Gokmen 'the0utsider'
+# Goko mag drop
+Author: Gokmen 'the0utsider'
+Description:Empty mag simulation: while reloading a depleted mag (ammo null), A.I or player, unit will drop an empty magazine on ground.
+It uses relative velocity, sound effect when hit on ground. Uses a generic magazine model in game since weapon mags' are part of weapon model itself, they can't be used.
 
-**Description:** Empty mag simulation: while reloading a depleted mag (ammo null), A.I or player, unit will drop an empty magazine on ground with simulated 3D particle.
-
-Mod use arma3's own physx based particle system and super-simple objects. Requires CBA.
+Mod use arma3's own physx based particle system so It doesn't kill performance, have almost 0 impact on performance.
 
 **Installation:**
  Subscribe via steam:
