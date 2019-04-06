@@ -6,7 +6,7 @@ class CfgFunctions
 		class particle
 		{
 			file = "goko_drop_magz\functions";
-			class Pistol_Particle3DFx {};
+			class Magazine_Particle3DFx {};
 		};
 		class eventhandler
 		{
@@ -18,5 +18,11 @@ class CfgFunctions
 			file = "goko_drop_magz\functions";
 			class AudioSimulation {};
 		};
+		class initialize
+		{
+			file = "\goko_drop_magz\initialize";
+			class preload {preInit = 1};
+			class loadup {};
+		}
 	};
 };

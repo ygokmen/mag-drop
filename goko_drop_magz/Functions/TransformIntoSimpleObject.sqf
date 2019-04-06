@@ -11,7 +11,7 @@ private _particlePosASL = _this;
 private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 3]);
 if (_searchForEntity isEqualTo []) exitWith {};
 private _unitFound = _searchForEntity#0;
-private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelNamePistol";
+private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelName";
 
 private _formatModelName = if !(isNil "_getMagModel") then 
 {
