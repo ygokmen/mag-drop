@@ -1,6 +1,6 @@
 /* 
- *	Goko Mag Drop add-on v1.22c for ARMA3
- *	Author: gökmen 'the0utsider' çakal
+ *	Goko Mag Drop add-on v1.23 for ARMA3 STEAM STABLE BRANCH
+ *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
  *	super simple object script
