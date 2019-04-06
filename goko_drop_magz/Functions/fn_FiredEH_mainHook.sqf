@@ -39,11 +39,17 @@ _null = _this spawn
 
 		if (!alive _actor) exitwith {true};
 
-		private _addVelocity = (velocity _actor vectorMultiply 1.1) vectorAdd [-0.4 + random 0.8, -0.4 + random 0.8, 0];
-		
-		/// pass this count of array, it will become index selector after incrementing attached objects array
-		private _existingAttachedObjects = (count attachedObjects _actor);
-		
+		private _actorVelocity =  velocity _actor;
+		private _actorDirection = direction _actor;
+		private _addVelocity = if (speed _actor isEqualTo 0) then {random 0.8 + random 0.8} else {1};	
+		private _addVelocityForwardVector = 
+		[
+			(velocity _actor # 0) + (sin _actorDirection * _addVelocity),
+			(velocity _actor # 1) + (cos _actorDirection * _addVelocity),
+			(velocity _actor # 2)
+		];
+		private _finalVelocity = ([-0.7 + random 1.4, -0.7 + random 1.4, random 0.2] vectorAdd _addVelocityForwardVector);
+
 		/// magazine config check for p3d model
 		private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
 		private _getMagazineCfgModelNameSpecial = getText(configfile >> "CfgMagazines" >> _magazine >> "modelSpecial");
@@ -65,7 +71,9 @@ _null = _this spawn
 
 		/// Store or update magazine model name in object's namespace variable
 		_actor setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
-		[_actor, _addVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
+		/// pass this count of array, it will become index selector after incrementing attached objects array
+		private _existingAttachedObjects = (count attachedObjects _actor);
+		[_actor, _finalVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
 		true;
 	};
 };
