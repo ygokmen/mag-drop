@@ -4,7 +4,7 @@
  *	Repo: github.com/the0utsider/mag-drop
  *
  *	super simple object script
- *	spawns a persistent simple object on ground, replacing 3d particle on ground
+ *	spawns a persistent super-simple object in the world, replacing 3d particle on ground
 */
 
 private _particlePosASL = _this;
@@ -34,7 +34,7 @@ private _adjustedPos = AGLToASL _manualAdjustPos ;
 		[], 						//animAdjustments
 		[] 							//selectionstoHide
 	],  
-	_adjustedPos, 					//positionWorld
+	_adjustedPos, 					//WorldPosition
 	round(random 180), 				//direction
 	true, 							//follow terrain inclination
 	true							//forceSuperSimpleObject

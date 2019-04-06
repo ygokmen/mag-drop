@@ -36,9 +36,9 @@ _null = _this spawn
 	waitUntil 
 	{
 		sleep (0.3 + random 0.3);
-
 		if (!alive _actor) exitwith {true};
 
+		/// velocity to pass on magazine. calculate forward vector of actor and bump it a little if unit moving so particle can drop in front of unit
 		private _actorVelocity =  velocity _actor;
 		private _actorDirection = direction _actor;
 		private _addVelocity = if (speed _actor isEqualTo 0) then {random 0.5 + random 0.5} else {1 + random 1};	
@@ -69,7 +69,7 @@ _null = _this spawn
 			_foundMagazineP3D = ([_getModel, "p3d"] joinString ".");
 		};
 
-		/// Store or update magazine model name in object's namespace variable
+		/// Store or update magazine model name in object's namespace variable, will be needed in SimpleObject script
 		_actor setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
 		/// pass this count of array, it will become index selector after incrementing attached objects array
 		private _existingAttachedObjects = (count attachedObjects _actor);

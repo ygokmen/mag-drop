@@ -7,7 +7,7 @@
  *	spawns script to create super simple object on ground
 */
 
-params ["_unit","_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
+params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
 
 /// attach a particle source at hands of unit and spawn a magazine model with physics simulation
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
@@ -41,12 +41,12 @@ _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
 
 /// detach and get rid of particle source. (still needs testing if this needs delay or not) using small delay with cba WaE
 /// Array count from previous function represents last added attached array object above without any modification.
-private _attachedLast = attachedObjects _actor;
+private _attachedListLast = attachedObjects _actor;
 
 [{	
 	detach (_this#0 select _this#1); 
 	deleteVehicle (_this#0 select _this#1);
-}, [_attachedLast, _cachedAttachToCount], 0.1] call CBA_fnc_waitAndExecute;
+}, [_attachedListLast, _cachedAttachToCount], 0.1] call CBA_fnc_waitAndExecute;
 
 [{	
 	_this call GokoMD_fnc_AudioSimulation;
