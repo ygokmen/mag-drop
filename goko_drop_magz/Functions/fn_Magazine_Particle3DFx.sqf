@@ -19,7 +19,7 @@ _popOutMagazine setParticleParams
 	/*Lifetime*/			1,
 	/*Position*/			[0,0,0],
 	/*MoveVelocity*/		_relativeVelocity,
-	/*Simulation*/			random 1.5, 3.8, 1, 0.13,//rotationVel,weight,volume,rubbing
+	/*Simulation*/			random 1.5, 14, 1, 2,//rotationVel,weight,volume,rubbing
 	/*Scale*/				[0.9],
 	/*Color*/				[[1,1,1,1],[1,1,1,1]],
 	/*AnimSpeed*/			[1,1],

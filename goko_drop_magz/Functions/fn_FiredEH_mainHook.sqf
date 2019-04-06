@@ -41,14 +41,14 @@ _null = _this spawn
 
 		private _actorVelocity =  velocity _actor;
 		private _actorDirection = direction _actor;
-		private _addVelocity = if (speed _actor isEqualTo 0) then {random 0.8 + random 0.8} else {1};	
+		private _addVelocity = if (speed _actor isEqualTo 0) then {random 0.5 + random 0.5} else {1 + random 1};	
 		private _addVelocityForwardVector = 
 		[
 			(velocity _actor # 0) + (sin _actorDirection * _addVelocity),
 			(velocity _actor # 1) + (cos _actorDirection * _addVelocity),
 			(velocity _actor # 2)
 		];
-		private _finalVelocity = ([-0.7 + random 1.4, -0.7 + random 1.4, random 0.2] vectorAdd _addVelocityForwardVector);
+		private _finalVelocity = ([0.8 - random 1.6, 0.8 - random 1.6, random 0.1] vectorAdd _addVelocityForwardVector);
 
 		/// magazine config check for p3d model
 		private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
