@@ -7,28 +7,31 @@
  *	Detect reload, pass required params
 */
 
+/// Leave ASAP if magazine still has ammo in it
+if !((_this#0 ammo _this#2) isEqualTo 0) exitWith {};
+
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 
-private _ammoInMagazine = _unit ammo _muzzle;
-if !(_ammoInMagazine isEqualTo 0 && {_weapon isEqualTo _muzzle}) exitWith{};
+if !(_unit in _unit && {_weapon isEqualTo _muzzle}) exitWith {};
 
-private _bOutofAmmo = getArray(configfile >> "CfgWeapons" >> _muzzle >> "magazines") arrayIntersect magazines _unit isEqualTo [];
-if (_bOutofAmmo || _weapon isEqualTo secondaryWeapon _unit) exitWith{};
+private _bOutofAmmo = getArray(configfile >> "CfgWeapons" >> _weapon >> "magazines") arrayIntersect magazines _unit isEqualTo [];
+if (_bOutofAmmo || _weapon isEqualTo secondaryWeapon _unit) exitWith {};
 
-/// a custom 'reload' EH
+/// a custom 'reload' EH with spawn/scheduled environment.
+/// TODO: remove this lame loop and use unscheduled muzzle reload EH when available @A3 stable branch
 _null = _this spawn 
 {
 	private _actor = _this#0;
 	private _muzzle = _this#2;
 	private _magazine = _this#5;
-	private _saveCycles = if (isPlayer _actor) then {0.1} else {0.4};
+	private _saveCycles = if (isPlayer _actor) then {0.1} else {0.5};
 	
 	while {alive _actor && currentMuzzle _actor isEqualTo _muzzle} do 
 	{
 		sleep _saveCycles;
-		if (!isPlayer _actor || inputAction "reloadMagazine" > 0) exitwith{};
+		if (!isPlayer _actor || inputAction "reloadMagazine" > 0) exitwith {};
 	};
-	if (!alive _actor || !(currentMuzzle _actor isEqualTo _muzzle)) exitwith{};
+	if (!alive _actor || !(currentMuzzle _actor isEqualTo _muzzle)) exitwith {};
 
 	waitUntil 
 	{
@@ -41,21 +44,28 @@ _null = _this spawn
 		/// pass this count of array, it will become index selector after incrementing attached objects array
 		private _existingAttachedObjects = (count attachedObjects _actor);
 		
-		/// config check for proper mag models 
-		private _bMagtypeIsRHS = (getText(configfile >> "CfgMagazines" >> _magazine >> "author") == "Red Hammer Studios");
-		private _getMagazineP3D = if (_bMagtypeIsRHS) then
-		{
-			private _rhsMagString = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
-			private _addExtension = ".p3d";
+		/// magazine config check for p3d model
+		private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
+		private _getMagazineCfgModelNameSpecial = getText(configfile >> "CfgMagazines" >> _magazine >> "modelSpecial");
+		/// nameSpecial have detailed models but their Z orientation is 90degrees off, they stand straight on ground, don't look good.
+		private _getModel = if (_getMagazineCfgModelName isEqualTo "") then {_getMagazineCfgModelNameSpecial;} else {_getMagazineCfgModelName;};
+		private _foundMagazineP3D = "";
+		private _findIfP3D = _getModel splitString ".";
 
-			if (_rhsMagString isEqualTo "\A3\weapons_F\ammo\mag_univ.p3d") then {_rhsMagString = "\A3\weapons_F\ammo\mag_univ"};
-			[_rhsMagString, _addExtension] joinString "";
+		if ("p3d" in _findIfP3D) then
+		{
+			switch _getModel do {
+				case "\A3\weapons_F\ammo\mag_univ.p3d" : {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
+				case "" : {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
+				default { _foundMagazineP3D = _getModel };
+			};
 		} else {
-			"\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d";
+			_foundMagazineP3D = ([_getModel, "p3d"] joinString ".");
 		};
+
 		/// Store or update magazine model name in object's namespace variable
-		_actor setVariable ["GokoMD_VAR_magazineModelNamePistol",_getMagazineP3D];
-		[_actor, _addVelocity, _getMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Pistol_Particle3DFx"];
+		_actor setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
+		[_actor, _addVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
 		true;
 	};
 };
