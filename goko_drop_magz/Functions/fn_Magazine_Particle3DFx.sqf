@@ -19,7 +19,7 @@ _popOutMagazine setParticleParams
 	/*Lifetime*/			1,
 	/*Position*/			[0,0,0],
 	/*MoveVelocity*/		_relativeVelocity,
-	/*Simulation*/			random 1.5, 3.4, 1, 0.13,//rotationVel,weight,volume,rubbing
+	/*Simulation*/			random 1.5, 3.8, 1, 0.13,//rotationVel,weight,volume,rubbing
 	/*Scale*/				[0.9],
 	/*Color*/				[[1,1,1,1],[1,1,1,1]],
 	/*AnimSpeed*/			[1,1],
@@ -30,12 +30,12 @@ _popOutMagazine setParticleParams
 	/*Follow*/				"",
 	/*Angle*/				0,
 	/*onSurface*/			false,
-	/*bounceOnSurface*/		0.21,
+	/*bounceOnSurface*/		0.22,
 	/*emissiveColor*/		[[0,0,0,0]]
 	/**3D Array Vector dir	[random 0.5, random -0.5, -1 + random 2]  DEV BRANCH ONLY!!!!!!! wont be available until 1.92@stable */
 ];
 
-private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rwrist"]; 
+private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rwrist"];
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
 _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
 
