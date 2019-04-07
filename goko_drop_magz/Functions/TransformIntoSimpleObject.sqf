@@ -13,7 +13,8 @@ if (_searchForEntity isEqualTo []) exitWith {};
 private _unitFound = _searchForEntity#0;
 private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelName";
 
-private _formatModelName = if !(isNil "_getMagModel") then 
+/// "needs to start without backslash" community.bistudio.com/wiki/BIS_fnc_createSimpleObject
+private _modelPathFull = if !(isNil "_getMagModel") then 
 {
 	(_getMagModel splitString "\") joinString "\"; 
 } else { "A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d" };
@@ -28,7 +29,7 @@ private _adjustedPos = AGLToASL _manualAdjustPos ;
 [ 
 	[ 
 		"", 						//class
-		_formatModelName, 			//model
+		_modelPathFull,				//model
 		0, 							//model reversed
 		0,							//vertical offset 
 		[], 						//animAdjustments

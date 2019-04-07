@@ -19,7 +19,7 @@ _popOutMagazine setParticleParams
 	/*Lifetime*/			1,
 	/*Position*/			[0,0,0],
 	/*MoveVelocity*/		_relativeVelocity,
-	/*Simulation*/			random 1.5, 14, 1, 2,//rotationVel,weight,volume,rubbing
+	/*Simulation*/			random 1.5, 14, 1, 0.4,//rotationVel,weight,volume,rubbing
 	/*Scale*/				[0.9],
 	/*Color*/				[[1,1,1,1],[1,1,1,1]],
 	/*AnimSpeed*/			[1,1],
@@ -43,6 +43,7 @@ _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
 /// Array count from previous function represents last added attached array object above without any modification.
 private _attachedListLast = attachedObjects _actor;
 
+/*
 [{	
 	detach (_this#0 select _this#1); 
 	deleteVehicle (_this#0 select _this#1);
@@ -51,3 +52,12 @@ private _attachedListLast = attachedObjects _actor;
 [{	
 	_this call GokoMD_fnc_AudioSimulation;
 }, _unit, 0.7] call CBA_fnc_waitAndExecute;
+*/
+
+/// lets use one WaE here
+
+[{	
+	detach (_this#0 select _this#1); 
+	deleteVehicle (_this#0 select _this#1);
+	_this#2 call GokoMD_fnc_AudioSimulation;
+}, [_attachedListLast, _cachedAttachToCount, _unit], 0.7] call CBA_fnc_waitAndExecute;
