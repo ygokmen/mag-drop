@@ -41,7 +41,7 @@ _null = _this spawn
 		/// velocity to pass on magazine. calculate forward vector of actor and bump it a little if unit moving so particle can drop in front of unit
 		private _actorVelocity =  velocity _actor;
 		private _actorDirection = direction _actor;
-		private _addVelocity = if (speed _actor isEqualTo 0) then {0.3 + random 0.4} else {0.7};
+		private _addVelocity = if (speed _actor isEqualTo 0) then {0.35 + random 0.3} else {0.6};
 		private _addVelocityForwardVector = 
 		[
 			(velocity _actor # 0) + (sin _actorDirection * _addVelocity),

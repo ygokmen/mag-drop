@@ -25,7 +25,7 @@ _manualAdjustPos set [0, _particlePosASL # 0];
 _manualAdjustPos set [1, _particlePosASL # 1];
 _manualAdjustPos set [2, 0.009 + getPosATL _unitFound # 2];
 private _adjustedPos = AGLToASL _manualAdjustPos ;
-
+/// create super-simple object at position
 [ 
 	[ 
 		"", 						//class
@@ -36,8 +36,10 @@ private _adjustedPos = AGLToASL _manualAdjustPos ;
 		[] 							//selectionstoHide
 	],  
 	_adjustedPos, 					//WorldPosition
-	round(random 180), 				//direction
+	round(random 359), 				//direction
 	true, 							//follow terrain inclination
 	true							//forceSuperSimpleObject
 ] call BIS_fnc_createSimpleObject;
 
+/// emit sound effect on position
+[_unitFound, _adjustedPos] call GokoMD_fnc_AudioSimulation;
