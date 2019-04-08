@@ -35,20 +35,20 @@ _null = _this spawn
 
 	waitUntil 
 	{
-		sleep (0.3 + random 0.3);
+		sleep (0.4 + random 0.3);
 		if (!alive _actor) exitwith {true};
 
 		/// velocity to pass on magazine. calculate forward vector of actor and bump it a little if unit moving so particle can drop in front of unit
 		private _actorVelocity =  velocity _actor;
 		private _actorDirection = direction _actor;
-		private _addVelocity = if (speed _actor isEqualTo 0) then {0.3 + random 0.4} else {0.5};
+		private _addVelocity = if (speed _actor isEqualTo 0) then {0.3 + random 0.4} else {0.7};
 		private _addVelocityForwardVector = 
 		[
 			(velocity _actor # 0) + (sin _actorDirection * _addVelocity),
 			(velocity _actor # 1) + (cos _actorDirection * _addVelocity),
 			(velocity _actor # 2)
 		];
-		private _finalVelocity = ([0.8 - random 1.5, 0.8 - random 1.5, 0] vectorAdd _addVelocityForwardVector);
+		private _finalVelocity = ([-0.8 + random 1.6, -0.8 + random 1.6, 0] vectorAdd _addVelocityForwardVector);
 
 		/// magazine config check for p3d model
 		private _getMagazineAuthor = getText(configfile >> "CfgMagazines" >> _magazine >> "author");

@@ -13,7 +13,7 @@ if (_searchForEntity isEqualTo []) exitWith {};
 private _unitFound = _searchForEntity#0;
 private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelName";
 
-/// "needs to start without backslash" community.bistudio.com/wiki/BIS_fnc_createSimpleObject
+/// "needs to start without backslash"-> community.bistudio.com/wiki/BIS_fnc_createSimpleObject
 private _modelPathFull = if !(isNil "_getMagModel") then 
 {
 	(_getMagModel splitString "\") joinString "\"; 
