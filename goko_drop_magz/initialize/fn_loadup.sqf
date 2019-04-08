@@ -5,8 +5,9 @@
  *	add fired EH main function 
 */
 
+_unit = _this select 0;
 
-if (local _this#0) then {
-
-	_this#0 addeventhandler ["Fired",{_this call GokoMD_fnc_FiredEH_mainHook}];
+if (local _unit) then 
+{
+	_unit addeventhandler ["Fired",{_this call GokoMD_fnc_FiredEH_mainHook}];
 };

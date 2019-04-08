@@ -41,19 +41,20 @@ _null = _this spawn
 		/// velocity to pass on magazine. calculate forward vector of actor and bump it a little if unit moving so particle can drop in front of unit
 		private _actorVelocity =  velocity _actor;
 		private _actorDirection = direction _actor;
-		private _addVelocity = if (speed _actor isEqualTo 0) then {random 0.5 + random 0.5} else {1 + random 1};	
+		private _addVelocity = if (speed _actor isEqualTo 0) then {0.3 + random 0.4} else {0.5};
 		private _addVelocityForwardVector = 
 		[
 			(velocity _actor # 0) + (sin _actorDirection * _addVelocity),
 			(velocity _actor # 1) + (cos _actorDirection * _addVelocity),
 			(velocity _actor # 2)
 		];
-		private _finalVelocity = ([0.8 - random 1.6, 0.8 - random 1.6, random 0.1] vectorAdd _addVelocityForwardVector);
+		private _finalVelocity = ([0.8 - random 1.5, 0.8 - random 1.5, 0] vectorAdd _addVelocityForwardVector);
 
 		/// magazine config check for p3d model
+		private _getMagazineAuthor = getText(configfile >> "CfgMagazines" >> _magazine >> "author");
 		private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
 		private _getMagazineCfgModelNameSpecial = getText(configfile >> "CfgMagazines" >> _magazine >> "modelSpecial");
-		/// nameSpecial have detailed models but their Z orientation is 90degrees off, they stand straight on ground, don't look good.
+		// nameSpecial have detailed models but their Z orientation is 90degrees up, they stand straight on ground, don't look good.
 		private _getModel = if (_getMagazineCfgModelName isEqualTo "") then {_getMagazineCfgModelNameSpecial;} else {_getMagazineCfgModelName;};
 		private _foundMagazineP3D = "";
 		private _findIfP3D = _getModel splitString ".";
@@ -62,15 +63,19 @@ _null = _this spawn
 		{
 			switch _getModel do {
 				case "\A3\weapons_F\ammo\mag_univ.p3d" : {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
-				case "" : {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
-				default { _foundMagazineP3D = _getModel };
+				default {_foundMagazineP3D = _getModel};
 			};
 		} else {
-			_foundMagazineP3D = ([_getModel, "p3d"] joinString ".");
+			/// this is special case for RHS magazines. Some of them also have BI as author name. Once in *.p3d format, they are good to go
+			switch _getMagazineAuthor do {
+				case "Red Hammer Studios" : {_foundMagazineP3D = [_getModel, "p3d"] joinString "."};
+				case "Bohemia Interactive" : {_foundMagazineP3D = [_getModel, "p3d"] joinString "."};
+				default {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
+			};
 		};
-
 		/// Store or update magazine model name in object's namespace variable, will be needed in SimpleObject script
 		_actor setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
+
 		/// pass this count of array, it will become index selector after incrementing attached objects array
 		private _existingAttachedObjects = (count attachedObjects _actor);
 		[_actor, _finalVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];

@@ -1,5 +1,5 @@
 # Goko mag drop
-Author: Gokmen 'the0utsider'
+Author: cgokmen 'the0utsider'
 Description:Empty mag simulation: while reloading a depleted mag (ammo null), A.I or player, unit will drop an empty magazine on ground.
 It uses relative velocity, sound effect when hit on ground. Uses a generic magazine model in game since weapon mags' are part of weapon model itself, they can't be used.
 

@@ -23,7 +23,7 @@ private _manualAdjustPos = [];
 _manualAdjustPos resize 3;
 _manualAdjustPos set [0, _particlePosASL # 0];
 _manualAdjustPos set [1, _particlePosASL # 1];
-_manualAdjustPos set [2, 0.01 + getPosATL _unitFound # 2];
+_manualAdjustPos set [2, 0.009 + getPosATL _unitFound # 2];
 private _adjustedPos = AGLToASL _manualAdjustPos ;
 
 [ 

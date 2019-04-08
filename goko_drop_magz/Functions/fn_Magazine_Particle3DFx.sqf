@@ -60,4 +60,4 @@ private _attachedListLast = attachedObjects _actor;
 	detach (_this#0 select _this#1); 
 	deleteVehicle (_this#0 select _this#1);
 	_this#2 call GokoMD_fnc_AudioSimulation;
-}, [_attachedListLast, _cachedAttachToCount, _unit], 0.7] call CBA_fnc_waitAndExecute;
+}, [_attachedListLast, _cachedAttachToCount, _unit], 0.65] call CBA_fnc_waitAndExecute;
