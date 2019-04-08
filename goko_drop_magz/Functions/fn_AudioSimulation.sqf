@@ -7,7 +7,7 @@
  *	uses variable pitch and randomized samples for authentic simulation
 */
 
-params ["_unit"];
+params ["_unit", "_soldierFeetPos"];
 
 private _SoundSamples = selectRandom
 [	
@@ -19,16 +19,14 @@ private _SoundSamples = selectRandom
 	"goko_drop_magz\SoundFX\gear_impact06.wav"
 ];
 
-private _soldierFeetPos = _unit modelToWorldVisualWorld [0,0,-3];
-
-/// play a sound sample at position below soldiers feet
+/// play a sound sample at position
 playsound3d 
 [
 	_SoundSamples, 
 	_unit,
 	false,					//buggy
 	_soldierFeetPos,		// position above sea level
-	1.2,					// volume dB
+	1.1,					// volume dB
 	0.8 + random 0.6,		// sound pitch
-	33						// sound range in meters
+	30						// sound range in meters
 ];
