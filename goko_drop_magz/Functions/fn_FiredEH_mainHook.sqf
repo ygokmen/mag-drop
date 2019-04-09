@@ -14,7 +14,7 @@ params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projecti
 
 if !(_unit in _unit && {_weapon isEqualTo _muzzle}) exitWith {};
 
-private _bOutofAmmo = getArray(configfile >> "CfgWeapons" >> _weapon >> "magazines") arrayIntersect magazines _unit isEqualTo [];
+private _bOutofAmmo = (_weapon call CBA_fnc_compatibleMagazines) arrayIntersect magazines _unit isEqualTo [];
 if (_bOutofAmmo || _weapon isEqualTo secondaryWeapon _unit) exitWith {};
 
 /// a custom 'reload' EH with spawn/scheduled environment.
