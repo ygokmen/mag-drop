@@ -4,7 +4,7 @@
  *	Repo: github.com/the0utsider/mag-drop
  *	
  *	3D Particle fx function - spawns 3d particle with physics simulation
- *	spawns script to create super simple object on ground
+ *	later spawns script to create super simple object on ground on timer
 */
 
 params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
@@ -15,8 +15,8 @@ _popOutMagazine setParticleParams
 [
 	/*Sprite*/				[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
 	/*Type*/				"spaceObject",
-	/*TimmerPer*/			0.6,
-	/*Lifetime*/			1.1,
+	/*TimerSeconds*/		0.6,
+	/*LifetimeSeconds*/		1.1,
 	/*Position*/			[0,0,0],
 	/*MoveVelocity*/		_relativeVelocity,
 	/*Simulation*/			random 1.5, 1, 0.000139253, 0.07,//rotationVel,weight,volume,rubbing
