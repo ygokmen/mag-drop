@@ -20,7 +20,7 @@ private _modelPathFull = if !(isNil "_getMagModel") then
 } else { "A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d" };
 
 private _adjustedPos = _particlePosASL;
-_manualAdjustPos set [2, 0.009 + getPosASL _unitFound # 2];
+_adjustedPos set [2, 0.009 + getPosASL _unitFound # 2];
 /// create super-simple object at position
 [ 
 	[ 
