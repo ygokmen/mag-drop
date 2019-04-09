@@ -19,12 +19,8 @@ private _modelPathFull = if !(isNil "_getMagModel") then
 	(_getMagModel splitString "\") joinString "\"; 
 } else { "A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d" };
 
-private _manualAdjustPos = [];
-_manualAdjustPos resize 3;
-_manualAdjustPos set [0, _particlePosASL # 0];
-_manualAdjustPos set [1, _particlePosASL # 1];
-_manualAdjustPos set [2, 0.009 + getPosATL _unitFound # 2];
-private _adjustedPos = AGLToASL _manualAdjustPos ;
+private _adjustedPos = _particlePosASL;
+_manualAdjustPos set [2, 0.009 + getPosASL _unitFound # 2];
 /// create super-simple object at position
 [ 
 	[ 
