@@ -39,8 +39,9 @@ private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
 _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
 
-/// detach and get rid of particle source. 
-/// Array count from previous function represents last added attached array object above without any modification.
+/// detach and get rid of particle source. NOTE: particle source will stay there, don't matter lifetime or interval of spawned particles.
+/// Array count from previous function represents last added attached array object above which is particle source.
+/// small delay before detach&destroying this particle source is necessary. It wont spawn particles unless a delay is present.
 private _attachedListLast = attachedObjects _unit;
 [{	
 	detach (_this#0 select _this#1); 

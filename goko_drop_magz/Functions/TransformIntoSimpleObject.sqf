@@ -10,7 +10,7 @@
 private _particlePosASL = _this;
 private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 3]);
 if (_searchForEntity isEqualTo []) exitWith {};
-private _unitFound = _searchForEntity#0;
+private _unitFound = _searchForEntity # 0;
 private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelName";
 
 /// "needs to start without backslash"-> community.bistudio.com/wiki/BIS_fnc_createSimpleObject
@@ -34,6 +34,9 @@ _adjustPos = if (_bIsOverSea) then
 	AGLToASL _manualAdjustPos;
 };
 
+/// emit sound effect at position
+[_unitFound, _adjustPos] call GokoMD_fnc_AudioSimulation;
+
 /// create super-simple object at position
 [ 
 	[ 
@@ -50,5 +53,15 @@ _adjustPos = if (_bIsOverSea) then
 	true							//forceSuperSimpleObject
 ] call BIS_fnc_createSimpleObject;
 
-/// emit sound effect at position
-[_unitFound, _adjustPos] call GokoMD_fnc_AudioSimulation;
+/* NOTES ON BIS SIMPLE OBJECT FUNCTION
+Terrain inclination bool helps greatly, it aligns the spawned magazines beautifully without dealing with setVectorDirAndUp.
+Downside, when you try to use magazines at nameSpecial string of magazineCfg, because of their rotation, they stand up on ground
+with one half of them buried to the ground... With Terrain inclination bool set to false, you have to set Dir and Up vectors manually.
+So far I couldn't manage to write a formula to do this. It is not an issue on even surfaces, flat areas etc. 
+
+PROBLEM: on terrain, spawning a nameSpecial cfg require 2 operations: 90 degrees tilt on X axis, and with that a surface normal calculation...
+player model is the only thing we can take as reference. 
+
+NOTE: you can still use terrain inclination bool true, then use setVectorDirAndUp to do X 90 rotation. Which I couldn't manage.
+
+TODO: find a formula to rotate object and set its position according to surface player walking on.
