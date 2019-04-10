@@ -20,8 +20,6 @@ private _modelPathFull = if !(isNil "_getMagModel") then
 } else { "A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d" };
 
 private _manualAdjustPos = _particlePosASL;
-
-/// commy2 warned: this won't work over sea, on carrier etc...
 /// adding bool to check if unit is over sea or not
 private _bIsOverSea = (getPosASL _unitFound # 2 < getPosATL _unitFound # 2);
 _adjustPos = if (_bIsOverSea) then 
@@ -53,15 +51,3 @@ _adjustPos = if (_bIsOverSea) then
 	true							//forceSuperSimpleObject
 ] call BIS_fnc_createSimpleObject;
 
-/* NOTES ON BIS SIMPLE OBJECT FUNCTION
-Terrain inclination bool helps greatly, it aligns the spawned magazines beautifully without dealing with setVectorDirAndUp.
-Downside, when you try to use magazines at nameSpecial string of magazineCfg, because of their rotation, they stand up on ground
-with one half of them buried to the ground... With Terrain inclination bool set to false, you have to set Dir and Up vectors manually.
-So far I couldn't manage to write a formula to do this. It is not an issue on even surfaces, flat areas etc. 
-
-PROBLEM: on terrain, spawning a nameSpecial cfg require 2 operations: 90 degrees tilt on X axis, and with that a surface normal calculation...
-player model is the only thing we can take as reference. 
-
-NOTE: you can still use terrain inclination bool true, then use setVectorDirAndUp to do X 90 rotation. Which I couldn't manage.
-
-TODO: find a formula to rotate object and set its position according to surface player walking on.

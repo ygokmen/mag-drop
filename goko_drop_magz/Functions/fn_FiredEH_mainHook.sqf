@@ -14,7 +14,7 @@ params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projecti
 
 /// Make sure soldier is on foot and not using GL or anything else than firearm
 if !(_unit in _unit && {_weapon isEqualTo _muzzle}) exitWith {};
-/// Make sure he has compatible magazines to start reloading
+/// Make sure he has compatible magazines to start reloading (thanks @dedmen)
 private _bOutofAmmo = (_weapon call CBA_fnc_compatibleMagazines) arrayIntersect (magazines _unit) isEqualTo [];
 /// Make sure it is not rocket launcher
 if (_bOutofAmmo || _weapon isEqualTo secondaryWeapon _unit) exitWith {};
@@ -33,7 +33,6 @@ _null = _this spawn
 		if (!isPlayer _unit || inputAction "reloadMagazine" > 0) exitwith {};
 	};
 	if (!alive _unit || !(currentMuzzle _unit isEqualTo _muzzle)) exitwith {};
-
 	/// Reloading EH Stage2
 	waitUntil 
 	{
@@ -52,40 +51,59 @@ _null = _this spawn
 		];
 		private _finalVelocity = ([-0.8 + random 1.6, -0.8 + random 1.6, 0] vectorAdd _addVelocityForwardVector);
 
-		/// magazine config check for p3d model
+/// magazine config check for p3d model
+		private _incompatibleAuthorList = ["", "BW-Mod"];
 		private _getMagazineAuthor = getText(configfile >> "CfgMagazines" >> _magazine >> "author");
 		private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
 		private _getMagazineCfgModelNameSpecial = getText(configfile >> "CfgMagazines" >> _magazine >> "modelSpecial");
-		// nameSpecial have detailed models (BI magazines) but their rotation is 90degrees up, they stand straight on ground, don't look good.
-		// TODO: Find a formula to properly set object rotation for nameSpecial models...can't use simpleObject method on them until then.
-		// don't use namespecial, unless main modelname is null. They can be used primarily when issue described above is solved.
-		private _getModel = if (_getMagazineCfgModelName isEqualTo "") then {_getMagazineCfgModelNameSpecial;} else {_getMagazineCfgModelName;};
+
+		private _bModelNeedsTilting = false;
+		private _foundMagazineP3D = "";
+		private _getModel = "";
+		
+		/// models in nameSpecial string have different rotation, they need custom formula
+		switch _getMagazineCfgModelNameSpecial do 
+		{
+			case "" : {_getModel = _getMagazineCfgModelName; _bModelNeedsTilting = false};
+			default {_getModel = _getMagazineCfgModelNameSpecial; _bModelNeedsTilting = true};
+		};
+
 		private _modelNameExtension = _getModel splitString ".";
 		private _bIsP3D = ( "p3d" == _modelNameExtension # (count _modelNameExtension - 1));
 
-		private _foundMagazineP3D = "";
 		if (_bIsP3D) then
 		{
-			switch _getModel do {
-				case "\A3\weapons_F\ammo\mag_univ.p3d" : {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
-				default {_foundMagazineP3D = _getModel};
+			_foundMagazineP3D = if (_getModel isEqualTo "\A3\weapons_F\ammo\mag_univ.p3d") then
+			{
+				"\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d";
+			} else {
+				_getModel;
 			};
+
 		} else {
-			/// this is special case for RHS magazines. Some of them also have BI as author name. Once in *.p3d format, they are good to go
-			switch _getMagazineAuthor do {
-				case "Red Hammer Studios" : {_foundMagazineP3D = [_getModel, "p3d"] joinString "."};
-				case "Bohemia Interactive" : {_foundMagazineP3D = [_getModel, "p3d"] joinString "."};
-				default {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
+
+			_foundMagazineP3D = if (_getMagazineAuthor in _incompatibleAuthorList) then 
+			{
+				"\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d";
+			} else {
+				[_getModel, "p3d"] joinString ".";
 			};
 		};
-		/// Store or update magazine model name in object's namespace variable, will be needed in SimpleObject script
+/// end of p3d model check stuff. TODO: this part above can be improved, I guess.
+		/// Store or update magazine model name in object's namespace, will be needed in SimpleObject script
 		_unit setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
 		
 		/// pass count of array, it will become index selector after incrementing attached objects array
 		private _existingAttachedObjects = (count attachedObjects _unit);
 		
-		/// commy2 warned: it uses playsound3d which is already global.
-		[_unit, _finalVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx", 2, false];
+		/// pass these and exec ONLY on server to avoid playsound3d spam (thanks @commy2)
+		[
+			_unit,
+			_finalVelocity,
+			_foundMagazineP3D,
+			_existingAttachedObjects,
+			_bModelNeedsTilting
+		] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx", 2, false];
 
 		/// Leave custom reloading EH loop
 		true;

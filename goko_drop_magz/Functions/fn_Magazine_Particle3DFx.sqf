@@ -7,7 +7,14 @@
  *	later spawns script to create super simple object on ground on timer
 */
 
-params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
+params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount", "_bModelNeedsTilting"];
+
+private _placeSuperSimpleObject = if (_bModelNeedsTilting) then
+{
+	"\goko_drop_magz\Functions\TransformIntoSimpleObjectSpecial.sqf"
+} else {
+	"\goko_drop_magz\Functions\TransformIntoSimpleObject.sqf"
+};
 
 /// attach a particle source at hands of unit and spawn a magazine model with physics simulation
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
@@ -25,7 +32,7 @@ _popOutMagazine setParticleParams
 	/*AnimSpeed*/			[1,1],
 	/*randDirPeriod*/		0.1,
 	/*randDirIntesity*/		0.01,
-	/*onTimerScript*/		"\goko_drop_magz\Functions\TransformIntoSimpleObject.sqf",
+	/*onTimerScript*/		_placeSuperSimpleObject,
 	/*DestroyScript*/		"",
 	/*Follow*/				"",
 	/*Angle*/				0,
