@@ -20,13 +20,13 @@ private _bOutofAmmo = (_weapon call CBA_fnc_compatibleMagazines) arrayIntersect 
 if (_bOutofAmmo || _weapon isEqualTo secondaryWeapon _unit) exitWith {};
 
 /// Start a custom 'reload' EH on scheduled environment.
-/// TODO: remove this lame loop and use unscheduled muzzle reload EH when available @A3 stable branch
+/// TODO: remove this lame loop and use unscheduled muzzle 'reload' EH when available @A3 stable branch
 _null = _this spawn 
 {
 	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 
 	private _saveCycles = if (isPlayer _unit) then {0.1} else {0.5};
-	
+	/// Reloading EH Stage1
 	while {alive _unit && currentMuzzle _unit isEqualTo _muzzle} do 
 	{
 		sleep _saveCycles;
@@ -34,6 +34,7 @@ _null = _this spawn
 	};
 	if (!alive _unit || !(currentMuzzle _unit isEqualTo _muzzle)) exitwith {};
 
+	/// Reloading EH Stage2
 	waitUntil 
 	{
 		sleep (0.4 + random 0.3);
@@ -80,9 +81,13 @@ _null = _this spawn
 		/// Store or update magazine model name in object's namespace variable, will be needed in SimpleObject script
 		_unit setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
 		
-		/// pass this count of array, it will become index selector after incrementing attached objects array
+		/// pass count of array, it will become index selector after incrementing attached objects array
 		private _existingAttachedObjects = (count attachedObjects _unit);
-		[_unit, _finalVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
+		
+		/// commy2 warned: it uses playsound3d which is already global.
+		[_unit, _finalVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx", 2, false];
+
+		/// Leave custom reloading EH loop
 		true;
 	};
 };
