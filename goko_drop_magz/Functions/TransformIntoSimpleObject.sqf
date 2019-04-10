@@ -19,8 +19,21 @@ private _modelPathFull = if !(isNil "_getMagModel") then
 	(_getMagModel splitString "\") joinString "\"; 
 } else { "A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d" };
 
-private _adjustedPos = _particlePosASL;
-_adjustedPos set [2, 0.009 + getPosASL _unitFound # 2];
+private _manualAdjustPos = _particlePosASL;
+
+/// commy2 warned: this won't work over sea, on carrier etc...
+/// adding bool to check if unit is over sea or not
+private _bIsOverSea = (getPosASL player#2 < getPosATL player#2);
+_adjustPos = if (_bIsOverSea) then 
+{
+	_manualAdjustPos set [2, 0.01 + getPosASL _unitFound # 2];
+	_manualAdjustPos;
+} else {
+/// this is required to get proper Z inside buildings, towers, etc.
+	_manualAdjustPos set [2, 0.009 + getPosATL _unitFound # 2];
+	AGLToASL _manualAdjustPos;
+};
+
 /// create super-simple object at position
 [ 
 	[ 
@@ -31,11 +44,11 @@ _adjustedPos set [2, 0.009 + getPosASL _unitFound # 2];
 		[], 						//animAdjustments
 		[] 							//selectionstoHide
 	],  
-	_adjustedPos, 					//WorldPosition
+	_adjustPos, 					//positionWorld: Array - placement position in format PositionWorld
 	round(random 359), 				//direction
 	true, 							//follow terrain inclination
 	true							//forceSuperSimpleObject
 ] call BIS_fnc_createSimpleObject;
 
-/// emit sound effect on position
-[_unitFound, _adjustedPos] call GokoMD_fnc_AudioSimulation;
+/// emit sound effect at position
+[_unitFound, _adjustPos] call GokoMD_fnc_AudioSimulation;
