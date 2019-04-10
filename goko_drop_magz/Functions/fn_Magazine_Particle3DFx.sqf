@@ -41,7 +41,7 @@ _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
 
 /// detach and get rid of particle source. 
 /// Array count from previous function represents last added attached array object above without any modification.
-private _attachedListLast = attachedObjects _actor;
+private _attachedListLast = attachedObjects _unit;
 [{	
 	detach (_this#0 select _this#1); 
 	deleteVehicle (_this#0 select _this#1);

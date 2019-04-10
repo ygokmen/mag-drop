@@ -55,14 +55,15 @@ _null = _this spawn
 		private _getMagazineAuthor = getText(configfile >> "CfgMagazines" >> _magazine >> "author");
 		private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
 		private _getMagazineCfgModelNameSpecial = getText(configfile >> "CfgMagazines" >> _magazine >> "modelSpecial");
-		// nameSpecial have detailed models but their Z orientation is 90degrees up, they stand straight on ground, don't look good.
+		// nameSpecial have detailed models (BI magazines) but their rotation is 90degrees up, they stand straight on ground, don't look good.
+		// TODO: Find a formula to properly set object rotation for nameSpecial models...can't use simpleObject method on them until then.
+		// don't use namespecial, unless main modelname is null. They can be used primarily when issue described above is solved.
 		private _getModel = if (_getMagazineCfgModelName isEqualTo "") then {_getMagazineCfgModelNameSpecial;} else {_getMagazineCfgModelName;};
 		private _modelNameExtension = _getModel splitString ".";
-		private _findIfP3D = _modelNameExtension # (count _modelNameExtension - 1);
+		private _bIsP3D = ( "p3d" == _modelNameExtension # (count _modelNameExtension - 1));
 
 		private _foundMagazineP3D = "";
-
-		if ("p3d" == _findIfP3D) then
+		if (_bIsP3D) then
 		{
 			switch _getModel do {
 				case "\A3\weapons_F\ammo\mag_univ.p3d" : {_foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d"};
@@ -78,7 +79,7 @@ _null = _this spawn
 		};
 		/// Store or update magazine model name in object's namespace variable, will be needed in SimpleObject script
 		_unit setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
-
+		
 		/// pass this count of array, it will become index selector after incrementing attached objects array
 		private _existingAttachedObjects = (count attachedObjects _unit);
 		[_unit, _finalVelocity, _foundMagazineP3D, _existingAttachedObjects] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
