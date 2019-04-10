@@ -56,4 +56,5 @@ _prepareToPlaceSuperSimpleObject setvectordirandup
 [ 
 	[0,0,0] vectordiff surfacenormal getpos _unitFound,
 	[-1 +random 2,-1 +random 2,-1] vectorCrossProduct surfacenormal getpos _unitFound 
+	/// no idea how it works, but it does. 
 ];
