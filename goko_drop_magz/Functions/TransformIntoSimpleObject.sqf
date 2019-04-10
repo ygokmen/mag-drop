@@ -23,7 +23,7 @@ private _manualAdjustPos = _particlePosASL;
 
 /// commy2 warned: this won't work over sea, on carrier etc...
 /// adding bool to check if unit is over sea or not
-private _bIsOverSea = (getPosASL player#2 < getPosATL player#2);
+private _bIsOverSea = (getPosASL _unitFound # 2 < getPosATL _unitFound # 2);
 _adjustPos = if (_bIsOverSea) then 
 {
 	_manualAdjustPos set [2, 0.01 + getPosASL _unitFound # 2];
