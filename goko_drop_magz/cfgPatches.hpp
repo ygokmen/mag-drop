@@ -9,7 +9,7 @@ class CfgPatches
 		weapons[]={};
 		requiredVersion = 0.1;
 		requiredAddons[] = {
-			"cba_common",
+			"cba_common"
 		};
 	};
 };

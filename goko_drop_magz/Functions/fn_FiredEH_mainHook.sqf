@@ -49,7 +49,7 @@ _null = _this spawn
 			_projectile, 
 			_gunner
 		], 
-		(0.4 + random 0.3)
+		0.4 + random 0.3
 		// TODO: can we find a better calculation for reload animation length?
 	] call CBA_fnc_waitAndExecute;
 

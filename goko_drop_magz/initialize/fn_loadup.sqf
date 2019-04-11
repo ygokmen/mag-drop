@@ -5,9 +5,11 @@
  *	add fired EH main function 
 */
 
-_unit = _this select 0;
+params ["_unit"]; 
 
 if (local _unit) then 
 {
-	_unit addeventhandler ["Fired",{_this call GokoMD_fnc_FiredEH_mainHook}];
+	private _firedEHID = _unit addeventhandler ["Fired",{_this call GokoMD_fnc_FiredEH_mainHook}];
+	private _localEHID = _unit addEventhandler ["Local",{_this call GokoMD_fnc_localEH}];
+	_unit setVariable ["GokoMD_unitCustomReloadEHIDs",[_firedEHID, _localEHID] ];
 };

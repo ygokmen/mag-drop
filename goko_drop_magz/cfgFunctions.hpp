@@ -24,6 +24,8 @@ class CfgFunctions
 			file = "\goko_drop_magz\initialize";
 			class preload {preInit = 1};
 			class loadup {};
+			class reinitialize {};
+			class localEH {};
 		}
 	};
 };

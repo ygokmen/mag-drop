@@ -29,6 +29,7 @@ switch _getMagazineCfgModelNameSpecial do
 };
 
 private _modelNameExtension = _getModel splitString ".";
+/// check if config name has p3d extension or not
 private _bIsP3D = ( "p3d" == _modelNameExtension # (count _modelNameExtension - 1));
 if (_bIsP3D) then
 {
@@ -67,11 +68,11 @@ private _finalVelocity = ([-0.8 + random 1.6, -0.8 + random 1.6, 0] vectorAdd _a
 /// pass count of array, it will become index selector after incrementing attached objects array
 private _existingAttachedObjects = (count attachedObjects _unit);
 
-/// pass these and exec ONLY on server to avoid playsound3d spam (thanks @commy2)
+
 [
 	_unit,
 	_finalVelocity,
 	_foundMagazineP3D,
 	_existingAttachedObjects,
 	_bModelNeedsTilting
-] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx", 2, false];
+] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
