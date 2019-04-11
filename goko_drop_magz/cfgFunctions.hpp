@@ -12,6 +12,7 @@ class CfgFunctions
 		{
 			file = "goko_drop_magz\functions";
 			class FiredEH_mainHook {};
+			class FiredEH_ReloadingStage2 {};
 		};
 		class audio
 		{
