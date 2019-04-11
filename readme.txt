@@ -1,15 +1,21 @@
 Empty mag throw simulation: while reloading a depleted mag (ammo null), A.I and player both, unit will drop an empty magazine on ground. 
 Simulation uses relative velocity with randomization and sound effect when hit on ground. 
 
-If reloaded weapon supports proxy magazine tech, mod will get the magazine model accordingly. If not, it will spawn a generic rifle magazine model.
-
-This mod uses arma3's own physx based particle system. Performance impact is zero to none.
+If reloaded weapon supports proxy magazine tech, mod will get the magazine model accordingly.
+If not, it will spawn a generic rifle magazine model.
 
 [B]ChangeLog:[/B] [SPOILER]
+ V1.24 - 04-11-2019;
+  - Added: Custom magazine rotation method for simple objects
+  - Added: Locality method for complete DS & multiplayer support (@spectre)
+  - Added: Magazine Wells support using CBA_compatibleMagazines (@dedmen)
+  - Added: Above sea or above ground detection (now works on Carrier)
+  - Fixed: Mod now works fine on headless / connected client vice-versa
+  - Tweak: Improved compatibility: Any magazine defined with special model will be utilized
+ 
  V1.23 - 04-08-2019 hotfix2;
   - Modname changed to "magazine simulation A3"
   - Minor animation & sound tweaks
-
  V1.23 - 04-06-2019;
   - Fixed: Mod not working on RHS class soldiers now fixed
   - Fixed: Magazines spawning random bug is gone for good!
