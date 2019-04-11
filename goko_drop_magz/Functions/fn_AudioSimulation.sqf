@@ -26,7 +26,7 @@ playsound3d
 	_unit,
 	false,					//buggy
 	_soldierFeetPos,		// position above sea level
-	1.0,					// volume dB
+	1.1,					// volume dB
 	0.8 + random 0.6,		// sound pitch
 	30						// sound range in meters
 ];
