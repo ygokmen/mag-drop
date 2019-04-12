@@ -8,7 +8,6 @@
 */
 
 params ["_unit", "_foundMagazineP3D", "_bModelNeedsTilting"];
-
 private _manualAdjustPos = _unit getVariable "GokoMD_VAR_particlePos";
 /// adding bool to check if unit is over sea or not
 private _bIsOverSea = (getPosASL _unit # 2 < getPosATL _unit # 2);
@@ -18,13 +17,12 @@ _adjustPos = if (_bIsOverSea) then
 	_manualAdjustPos;
 } else {
 /// this is required to get proper Z inside buildings, towers, etc.
-	_manualAdjustPos set [2, 0.01 + getPosATL _unit # 2];
+	_manualAdjustPos set [2, 0.0086 + getPosATL _unit # 2];
 	AGLToASL _manualAdjustPos;
 };
 
 /// "needs to start without backslash"-> community.bistudio.com/wiki/BIS_fnc_createSimpleObject
 private _modelPath = (_foundMagazineP3D splitString "\") joinString "\"; 
-
 if (_bModelNeedsTilting) then
 {
 	/// create super-simple object at position with custom rotation
@@ -43,14 +41,12 @@ if (_bModelNeedsTilting) then
 		false,				//follow terrain inclination
 		true 				//forceSuperSimpleObject
 	] call BIS_fnc_createSimpleObject; 
-
 	_prepareToPlaceSuperSimpleObject setvectordirandup  
 	[ 
 		[0,0,0] vectordiff surfacenormal getpos _unit,
 		[-1 +random 2,-1 +random 2,-1] vectorCrossProduct surfacenormal getpos _unit 
 		/// no idea how it works, but it does. 
 	];
-
 } else {
 	/// create super-simple object at position
 	[ 

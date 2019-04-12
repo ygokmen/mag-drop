@@ -8,10 +8,6 @@
 */
 
 params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
-
-/// store client who called remoteExec in objects namespace....TODO:fixit
-_unit setVariable ["GokoMD_VAR_clientOwnerID", remoteExecutedOwner];
-
 /// attach a particle source at hands of unit and spawn a magazine model with physics simulation
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
 _popOutMagazine setParticleParams
@@ -26,7 +22,7 @@ _popOutMagazine setParticleParams
 	/*Scale*/				[0.9],
 	/*Color*/				[[1,1,1,1],[1,1,1,1]],
 	/*AnimSpeed*/			[1,1],
-	/*randDirPeriod*/		0.1,
+	/*randDirPeriod*/		0.5,
 	/*randDirIntesity*/		0.01,
 	/*onTimerScript*/		"\goko_drop_magz\Functions\storePos.sqf",
 	/*DestroyScript*/		"",
@@ -37,7 +33,6 @@ _popOutMagazine setParticleParams
 	/*emissiveColor*/		[[0,0,0,0]]
 	/**3D Array Vector dir	[random 0.5, random -0.5, -1 + random 2]  DEV BRANCH ONLY!!!!!!! wont be available until 1.92@stable */
 ];
-
 private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1", "granat"];
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
 _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
