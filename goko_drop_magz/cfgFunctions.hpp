@@ -7,6 +7,7 @@ class CfgFunctions
 		{
 			file = "goko_drop_magz\functions";
 			class Magazine_Particle3DFx {};
+			class SimpleObject {};
 		};
 		class eventhandler
 		{

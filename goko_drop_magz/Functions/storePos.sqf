@@ -3,14 +3,32 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	super simple object script
- *	spawns a persistent super-simple object in the world, replacing 3d particle on ground
+ *	store particle last position
+ *	needed a check if more than 1 soldier in vicinity
 */
 
 private _particlePosASL = _this;
 private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 3]);
 if (_searchForEntity isEqualTo []) exitWith {};
-private _unitFound = _searchForEntity # 0;
+
+if (count _searchForEntity isEqualTo 1) then 
+{
+	_searchForEntity # 0 setVariable ["GokoMD_VAR_particlePos", _particlePosASL];
+
+} else {
+	{
+	_x setVariable ["GokoMD_VAR_particlePos", _particlePosASL];
+	} forEach _searchForEntity;
+};
+
+
+
+/*
+
+_searchForEntity = _searchForEntity apply {[_x clientOwner, _x]};
+_nearEnemies sort true;
+private _nearestEnemy = _nearEnemies # 0 # 1;
+
 private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelName";
 private _getUniqueID = _unitFound getVariable "GokoMD_VAR_clientOwnerID";
 
@@ -53,3 +71,6 @@ _adjustPos = if (_bIsOverSea) then
 	true, 							//follow terrain inclination
 	true							//forceSuperSimpleObject
 ] call BIS_fnc_createSimpleObject;
+
+
+*/

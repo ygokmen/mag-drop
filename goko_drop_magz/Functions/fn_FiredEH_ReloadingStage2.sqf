@@ -68,11 +68,24 @@ private _finalVelocity = ([-0.8 + random 1.6, -0.8 + random 1.6, 0] vectorAdd _a
 /// pass count of array, it will become index selector after incrementing attached objects array
 private _existingAttachedObjects = (count attachedObjects _unit);
 
-
+/// local stuff that has to be remoteExec'd
 [
 	_unit,
 	_finalVelocity,
 	_foundMagazineP3D,
-	_existingAttachedObjects,
-	_bModelNeedsTilting
+	_existingAttachedObjects
 ] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];
+
+
+/// globals, pass it via cba WaE
+[
+	{	
+		_this call GokoMD_fnc_SimpleObject;
+	}, 
+	[
+		_unit,
+		_foundMagazineP3D,
+		_bModelNeedsTilting
+	], 
+	0.6
+] call CBA_fnc_waitAndExecute;

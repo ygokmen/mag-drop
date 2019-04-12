@@ -7,14 +7,7 @@
  *	later spawns script to create super simple object on ground on timer
 */
 
-params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount", "_bModelNeedsTilting"];
-
-private _placeSuperSimpleObject = if (_bModelNeedsTilting) then
-{
-	"\goko_drop_magz\Functions\TransformIntoSimpleObjectSpecial.sqf"
-} else {
-	"\goko_drop_magz\Functions\TransformIntoSimpleObject.sqf"
-};
+params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
 
 /// store client who called remoteExec in objects namespace....TODO:fixit
 _unit setVariable ["GokoMD_VAR_clientOwnerID", remoteExecutedOwner];
@@ -25,7 +18,7 @@ _popOutMagazine setParticleParams
 [
 	/*Sprite*/				[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
 	/*Type*/				"spaceObject",
-	/*TimerSeconds*/		0.6,
+	/*TimerSeconds*/		0.5,
 	/*LifetimeSeconds*/		1,
 	/*Position*/			[0,0,0],
 	/*MoveVelocity*/		_relativeVelocity,
@@ -35,7 +28,7 @@ _popOutMagazine setParticleParams
 	/*AnimSpeed*/			[1,1],
 	/*randDirPeriod*/		0.1,
 	/*randDirIntesity*/		0.01,
-	/*onTimerScript*/		_placeSuperSimpleObject,
+	/*onTimerScript*/		"\goko_drop_magz\Functions\storePos.sqf",
 	/*DestroyScript*/		"",
 	/*Follow*/				"",
 	/*Angle*/				0,
