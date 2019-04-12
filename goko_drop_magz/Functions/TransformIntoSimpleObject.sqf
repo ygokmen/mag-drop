@@ -12,6 +12,9 @@ private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 3]);
 if (_searchForEntity isEqualTo []) exitWith {};
 private _unitFound = _searchForEntity # 0;
 private _getMagModel = _unitFound getVariable "GokoMD_VAR_magazineModelName";
+private _getUniqueID = _unitFound getVariable "GokoMD_VAR_clientOwnerID";
+
+if !(_getUniqueID isEqualTo clientOwner) exitWith {};
 
 /// "needs to start without backslash"-> community.bistudio.com/wiki/BIS_fnc_createSimpleObject
 private _modelPathFull = if !(isNil "_getMagModel") then 
@@ -28,7 +31,7 @@ _adjustPos = if (_bIsOverSea) then
 	_manualAdjustPos;
 } else {
 /// this is required to get proper Z inside buildings, towers, etc.
-	_manualAdjustPos set [2, 0.009 + getPosATL _unitFound # 2];
+	_manualAdjustPos set [2, 0.01 + getPosATL _unitFound # 2];
 	AGLToASL _manualAdjustPos;
 };
 
@@ -50,4 +53,3 @@ _adjustPos = if (_bIsOverSea) then
 	true, 							//follow terrain inclination
 	true							//forceSuperSimpleObject
 ] call BIS_fnc_createSimpleObject;
-

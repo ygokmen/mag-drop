@@ -75,5 +75,4 @@ private _existingAttachedObjects = (count attachedObjects _unit);
 	_foundMagazineP3D,
 	_existingAttachedObjects,
 	_bModelNeedsTilting
-] call GokoMD_fnc_Magazine_Particle3DFx;
-/// createVehicleLocal strangely works on all clients without using remoteExecCall. (TESTED ON DS)
+] remoteExecCall ["GokoMD_fnc_Magazine_Particle3DFx"];

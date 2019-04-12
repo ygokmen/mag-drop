@@ -16,6 +16,9 @@ private _placeSuperSimpleObject = if (_bModelNeedsTilting) then
 	"\goko_drop_magz\Functions\TransformIntoSimpleObject.sqf"
 };
 
+/// store client who called remoteExec in objects namespace....TODO:fixit
+_unit setVariable ["GokoMD_VAR_clientOwnerID", remoteExecutedOwner];
+
 /// attach a particle source at hands of unit and spawn a magazine model with physics simulation
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
 _popOutMagazine setParticleParams
@@ -23,7 +26,7 @@ _popOutMagazine setParticleParams
 	/*Sprite*/				[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
 	/*Type*/				"spaceObject",
 	/*TimerSeconds*/		0.6,
-	/*LifetimeSeconds*/		1.1,
+	/*LifetimeSeconds*/		1,
 	/*Position*/			[0,0,0],
 	/*MoveVelocity*/		_relativeVelocity,
 	/*Simulation*/			random 1.5, 1, 0.000139253, 0.07,//rotationVel,weight,volume,rubbing
