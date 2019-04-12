@@ -12,25 +12,25 @@ params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
 _popOutMagazine setParticleParams
 [
-	/*Sprite*/				[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
-	/*Type*/				"spaceObject",
-	/*TimerSeconds*/		0.5,
-	/*LifetimeSeconds*/		1,
-	/*Position*/			[0,0,0],
-	/*MoveVelocity*/		_relativeVelocity,
-	/*Simulation*/			random 1.5, 1, 0.000139253, 0.07,//rotationVel,weight,volume,rubbing
-	/*Scale*/				[0.9],
-	/*Color*/				[[1,1,1,1],[1,1,1,1]],
-	/*AnimSpeed*/			[1,1],
-	/*randDirPeriod*/		0.5,
-	/*randDirIntesity*/		0.01,
-	/*onTimerScript*/		"\goko_drop_magz\Functions\storePos.sqf",
-	/*DestroyScript*/		"",
-	/*Follow*/				"",
-	/*Angle*/				0,
-	/*onSurface*/			false,
-	/*bounceOnSurface*/		0.15,
-	/*emissiveColor*/		[[0,0,0,0]]
+	/*Sprite*/			[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
+	/*Type*/			"spaceObject",
+	/*TimerSeconds*/	0.5,
+	/*LifetimeSeconds*/	1,
+	/*Position*/		[0,0,0],
+	/*MoveVelocity*/	_relativeVelocity,
+	/*Simulation*/		random 1.5, 1, 0.000139253, 0.07,//rotationVel,weight,volume,rubbing
+	/*Scale*/			[0.9],
+	/*Color*/			[[1,1,1,1],[1,1,1,1]],
+	/*AnimSpeed*/		[1,1],
+	/*randDirPeriod*/	0.5,
+	/*randDirIntesity*/	0.01,
+	/*onTimerScript*/	"\goko_drop_magz\Functions\storePos.sqf",
+	/*DestroyScript*/	"",
+	/*Follow*/			"",
+	/*Angle*/			0,
+	/*onSurface*/		false,
+	/*bounceOnSurface*/	0.15,
+	/*emissiveColor*/	[[0,0,0,0]]
 	/**3D Array Vector dir	[random 0.5, random -0.5, -1 + random 2]  DEV BRANCH ONLY!!!!!!! wont be available until 1.92@stable */
 ];
 private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1", "granat"];
