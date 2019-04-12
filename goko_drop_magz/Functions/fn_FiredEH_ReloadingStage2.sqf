@@ -43,20 +43,18 @@ if (_bIsP3D) then
 		[_getModel, "p3d"] joinString ".";
 	};
 };
-/// Store or update magazine model name in object's namespace, will be needed in SimpleObject script
-_unit setVariable ["GokoMD_VAR_magazineModelName",_foundMagazineP3D];
 
 /// velocity to pass on magazine: calculate forward vector of actor and bump it a little if unit moving so particle can drop in front of unit
 private _unitVelocity =  velocity _unit;
 private _unitDirection = direction _unit;
-private _addVelocity = if (speed _unit isEqualTo 0) then {0.2 + random 0.2} else {0.5};
+private _addVelocity = if (speed _unit isEqualTo 0) then {0.2 + random 0.15} else {0.5};
 private _addVelocityForwardVector = 
 [
 	(velocity _unit # 0) + (sin _unitDirection * _addVelocity),
 	(velocity _unit # 1) + (cos _unitDirection * _addVelocity),
 	(velocity _unit # 2)
 ];
-private _finalVelocity = ([-0.8 + random 1.6, -0.8 + random 1.6, 0] vectorAdd _addVelocityForwardVector);
+private _finalVelocity = ([-0.7 + random 1.4, -0.7 + random 1.4, random 0.08] vectorAdd _addVelocityForwardVector);
 
 /// pass count of array, it will become index selector after incrementing attached objects array
 private _existingAttachedObjects = (count attachedObjects _unit);

@@ -3,7 +3,7 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	store particle last position as  variable
+ *	store particle last position
  *	 a check needed if more than 1 soldier in vicinity
 */
 
