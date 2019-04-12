@@ -3,8 +3,9 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	store particle last position
- *	 a check needed if more than 1 soldier in vicinity
+ *	store particle last position with a if check for more than 1 soldier in vicinity
+ *	this is remote exec'd and script itself has global effect, not safe to do anything else here
+ *	
 */
 
 private _particlePosASL = _this;

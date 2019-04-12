@@ -3,11 +3,13 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	super simple object script
+ *	super simple object script with playsound3d. stuff here has global effects.
  *	spawns a persistent super-simple object in the world, replacing 3d particle on ground
+ *	
 */
 
 params ["_unit", "_foundMagazineP3D", "_bModelNeedsTilting"];
+
 private _manualAdjustPos = _unit getVariable "GokoMD_VAR_particlePos";
 /// adding bool to check if unit is over sea or not
 private _bIsOverSea = (getPosASL _unit # 2 < getPosATL _unit # 2);
@@ -51,17 +53,17 @@ if (_bModelNeedsTilting) then
 	/// create super-simple object at position
 	[ 
 		[ 
-			"", 						//class
-			_modelPath,				//model
-			0, 							//model reversed
-			0,							//vertical offset 
-			[], 						//animAdjustments
-			[] 							//selectionstoHide
+			"", 			//class
+			_modelPath,		//model
+			0, 				//model reversed
+			0,				//vertical offset 
+			[], 			//animAdjustments
+			[] 				//selectionstoHide
 		],  
-		_adjustPos, 					//positionWorld: Array - placement position in format PositionWorld
-		round(random 359), 				//direction
-		true, 							//follow terrain inclination
-		true							//forceSuperSimpleObject
+		_adjustPos, 		//positionWorld: Array - placement position in format PositionWorld
+		round(random 359), 	//direction
+		true, 				//follow terrain inclination
+		true				//forceSuperSimpleObject
 	] call BIS_fnc_createSimpleObject;
 };
 
