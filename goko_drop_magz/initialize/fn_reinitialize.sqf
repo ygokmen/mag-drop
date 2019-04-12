@@ -1,14 +1,11 @@
-/*--------------------------------------------------------
-Authors: Sceptre
-Modified for goko magazine simulation add-on
-Reinitializes magsim function on a unit that had locality changed
+/* 
+ *	Goko Mag Drop add-on v1.24 for ARMA3 STEAM STABLE BRANCH
+ *	Author: Sceptre
+ *	Modified for goko magazine simulation add-on.
+ *	Repo: github.com/the0utsider/mag-drop
+ *	Reinitializes magsim function on a unit that had locality changed
+*/
 
-Parameters:
-0: Unit to reinitilize UVO stuff on <OBJECT>
-
-Return Value:
-Nothing
-----------------------------------------------------------*/
 params ["_unit"];
 
 // Add necessary Event Handlers, again.
