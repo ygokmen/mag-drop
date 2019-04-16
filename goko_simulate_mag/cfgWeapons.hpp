@@ -10,7 +10,10 @@ class CfgWeapons
 		// inheriting Eventhandlers class for better modcross compatibility
 		class Eventhandlers: Eventhandlers 
 		{
-			fired	= "_this call GSM_fnc_detectReload";
+			class GSM_popMagRifle
+			{
+				fired	= "_this call GSM_fnc_detectReload";
+			}
 		};
 	};
 	class PistolCore;
@@ -23,7 +26,11 @@ class CfgWeapons
 		// inheriting Eventhandlers class for better modcross compatibility
 		class Eventhandlers: Eventhandlers 
 		{
-			fired	= "_this call GSM_fnc_detectReload";
+			class GSM_popMagPistol
+			{
+				fired	= "_this call GSM_fnc_detectReload";
+			}
+			
 		};
 	};
 };

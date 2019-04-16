@@ -2,8 +2,8 @@ class CfgPatches
 {
 	class Simulate_Mag
 	{
-		name = "Simulate Magazine";
-		version="1.24";
+		name = "Simulate Magazine A3";
+		version="1.25";
 		author="cgokmen 'the0utsider'";
 		units[] = {};
 		weapons[]={};

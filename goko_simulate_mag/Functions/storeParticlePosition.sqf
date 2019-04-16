@@ -9,7 +9,7 @@
 */
 
 private _particlePosASL = _this;
-private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 3]);
+private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 2.5]);
 if (_searchForEntity isEqualTo []) exitWith {};
 
 if (count _searchForEntity isEqualTo 1) then 

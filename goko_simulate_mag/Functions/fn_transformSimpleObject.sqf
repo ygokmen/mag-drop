@@ -52,7 +52,7 @@ if (_bModelNeedsTilting) then
 		false,				//follow terrain inclination
 		true 				//forceSuperSimpleObject
 	] call BIS_fnc_createSimpleObject; 
-	systemchat format ["%1 simple object is created (special tilt)",time];
+
 	_prepareToPlaceSuperSimpleObject setvectordirandup  
 	[ 
 		[0,0,0] vectordiff surfacenormal getpos _unit,
@@ -75,7 +75,7 @@ if (_bModelNeedsTilting) then
 		true, 				//follow terrain inclination
 		true				//forceSuperSimpleObject
 	] call BIS_fnc_createSimpleObject;
-	systemchat format ["%1 simple object is created (regular method)",time];
+
 };
 
 /// emit sound effect at position

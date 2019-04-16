@@ -14,7 +14,7 @@ _popOutMagazine setParticleParams
 [
 	/*Sprite*/			[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
 	/*Type*/			"spaceObject",
-	/*TimerSeconds*/	0.5,
+	/*TimerSeconds*/	0.51,
 	/*LifetimeSeconds*/	1,
 	/*Position*/		[0,0,0],
 	/*MoveVelocity*/	_relativeVelocity,
