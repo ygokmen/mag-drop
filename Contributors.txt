@@ -1,2 +1,2 @@
-Spectre (locality method)
+
 dedmen (CBA magwells method)

@@ -5,6 +5,11 @@ If reloaded weapon supports proxy magazine tech, mod will get the magazine model
 If not, it will spawn a generic rifle magazine model.
 
 [B]ChangeLog:[/B] [SPOILER]
+ V1.25 - 04-16-2019;
+  - *NEW*: CBA options implementation
+  - Added: More error checking to deal with random situations
+  - Tweak: Muzzle event handler for 'rifle' and 'pistol' class (less overhead)
+
  V1.24 - 04-11-2019;
   - Added: Custom magazine rotation method for simple objects
   - Added: Locality method for complete DS & multiplayer support (@spectre)
@@ -12,7 +17,6 @@ If not, it will spawn a generic rifle magazine model.
   - Added: Above sea or above ground detection (now works on Carrier)
   - Fixed: Mod now works fine on headless / connected client vice-versa
   - Tweak: Improved compatibility: Any magazine defined with special model will be utilized
- 
  V1.23 - 04-08-2019 hotfix2;
   - Modname changed to "magazine simulation A3"
   - Minor animation & sound tweaks
