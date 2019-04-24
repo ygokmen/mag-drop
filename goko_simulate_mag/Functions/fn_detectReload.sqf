@@ -9,14 +9,19 @@
 
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 
-
 /// Leave ASAP if magazine still has ammo in it
 if !((_unit ammo _muzzle) isEqualTo 0) exitWith {};
+
 /// Make sure soldier is on foot and not using GL or anything else
 if !(_unit in _unit && {_weapon isEqualTo _muzzle}) exitWith {};
 /// Make sure he has compatible magazines to start reloading (thanks @dedmen)
 private _bOutofAmmo = (_weapon call CBA_fnc_compatibleMagazines) arrayIntersect (magazines _unit) isEqualTo [];
 if (_bOutofAmmo) exitWith {};
+
+if (GSM_option_bShowMagAuthor) exitWith {
+	systemChat "GSM debugging enabled, leaving scripted simulation...";
+	["WARNING: debugging enabled", 3, 1.5, [1,0,0,0.8],false] spawn bis_fnc_wlsmoothtext;
+};
 
 /// TODO: use unscheduled muzzle 'reload' EH when available @A3 stable branch
 _null = _this spawn 
