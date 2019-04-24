@@ -1,5 +1,5 @@
 /* 
- *	Goko Mag Drop add-on v1.25 for ARMA3 STEAM STABLE BRANCH
+ *	Goko Mag Drop add-on v1.26 for ARMA3 STEAM STABLE BRANCH
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *	
@@ -7,8 +7,14 @@
  *	uses randomized pitch & samples for authentic simulation
 */
 
+params ["_unit", "_foundMagazineP3D", "_bModelNeedsTilting"];
 
-params ["_unit", "_soldierFeetPos"];
+private _manualAdjustPos = if (isnil{_unit getVariable "GMS_var_particlePos"}) then 
+{
+	_unit getRelPos [(0.6 + round random 0.5), (280 + round random 160)];
+} else {
+	AGLToASL (_unit getVariable "GMS_var_particlePos");
+};
 
 private _SoundSamples = selectRandom
 [	
@@ -26,8 +32,21 @@ playsound3d
 	_SoundSamples, 
 	_unit,				// this is ignored since position ASL provided.
 	false,					// buggy
-	_soldierFeetPos,		// position asl
-	1.1,					// volume dB
+	_manualAdjustPos,		// position asl
+	1.2,					// volume dB
 	0.9 + random 0.6,		// sound pitch
-	30						// sound range in meters
+	25						// sound range in meters
 ];
+
+/// place simple object (synched with particle3D disappearing)
+[
+	{	
+		_this call GSM_fnc_transformSimpleObject;
+	}, 
+	[
+		_unit,
+		_foundMagazineP3D,
+		_bModelNeedsTilting
+	], 
+	0.5
+] call CBA_fnc_waitAndExecute;
