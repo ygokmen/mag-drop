@@ -24,7 +24,7 @@ private _SoundSamples = selectRandom
 playsound3d 
 [
 	_SoundSamples, 
-	DummyUnit,				// this is ignored since position ASL provided.
+	_unit,				// this is ignored since position ASL provided.
 	false,					// buggy
 	_soldierFeetPos,		// position asl
 	1.1,					// volume dB
