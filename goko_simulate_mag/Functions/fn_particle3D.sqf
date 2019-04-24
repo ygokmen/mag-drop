@@ -1,5 +1,5 @@
 /* 
- *	Goko Mag Drop add-on v1.25 for ARMA3 STEAM STABLE BRANCH
+ *	Goko Mag Drop add-on v1.26 for ARMA3 STEAM STABLE BRANCH
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *	
@@ -7,19 +7,30 @@
  *	
 */
 
-params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount", "_hiddenTexture"];
-/// attach a particle source at hands of unit and spawn a magazine model with physics simulation
+params ["_unit", "_ammoModelP3D", "_cachedAttachToCount"];
 
+/// velocity to pass on magazine: calculate forward vector of actor 
+//  and bump it a little if unit moving so particle can drop in front of unit
+private _randomizeVector = [-2 + random 4, -2 + random 4, 0];
+private _forwardVelocity = (_unit weaponDirection currentWeapon _unit) vectorMultiply 3;
+private _finalVelocity = if !(velocityModelSpace _unit # 1 isEqualTo 0) then
+{
+	velocity _unit;
+} else {
+	vectorNormalized (_forwardVelocity vectorAdd _randomizeVector);
+};
+
+/// attach a particle source at hands of unit and spawn a magazine model with physics simulation
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
 _popOutMagazine setParticleParams
 [
 	/*Sprite*/			[_ammoModelP3D,1,0,1,0],"", // File,Ntieth,Index,Count,Loop
 	/*Type*/			"spaceObject",
-	/*TimerSeconds*/	0.51,
-	/*LifetimeSeconds*/	1,
+	/*TimerSeconds*/	0.4,
+	/*LifetimeSeconds*/	1.1,
 	/*Position*/		[0,0,0],
-	/*MoveVelocity*/	_relativeVelocity,
-	/*Simulation*/		random 1, 10, 0.0139253, 0.36,//rotationVel,weight,volume,rubbing
+	/*MoveVelocity*/	_finalVelocity,
+	/*Simulation*/		random 1, 10, 0.0139253, 0.125,//rotationVel,weight,volume,rubbing
 	/*Scale*/			[0.9],
 	/*Color*/			[[1,1,1,1]],
 	/*AnimSpeed*/		[1,1],
@@ -30,17 +41,11 @@ _popOutMagazine setParticleParams
 	/*Follow*/			"",
 	/*Angle*/			0,
 	/*onSurface*/		false,
-	/*bounceOnSurface*/	-1,   /// this means no collision with ground
+	/*bounceOnSurface*/	0.2,
 	/*emissiveColor*/	[[0,0,0,0]]
 	/**3D Array Vector dir DEV BRANCH ONLY!!!!!!! wont be available until 1.93@stable */
 ];
-/* doesn't work...can't use hiddenSelectionTextures...
-if !(_hiddenTexture isEqualTo []) then { 
-	_popOutMagazine setObjectMaterial [0, "\A3\Structures_F_Mark\VR\Targets\Data\VR_Target_MBT_01_cannon_INDEP.rvmat"];
-	_test = _hiddenTexture # 0;
-	_popOutMagazine setObjectTextureGlobal [0, _test];
-};
-*/
+
 private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1", "granat"];
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
 _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
