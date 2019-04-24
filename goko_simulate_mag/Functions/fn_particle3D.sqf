@@ -7,20 +7,21 @@
  *	
 */
 
-params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount"];
+params ["_unit", "_relativeVelocity", "_ammoModelP3D", "_cachedAttachToCount", "_hiddenTexture"];
 /// attach a particle source at hands of unit and spawn a magazine model with physics simulation
+
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
 _popOutMagazine setParticleParams
 [
-	/*Sprite*/			[_ammoModelP3D,1,18,1,0],"",// File,Ntieth,Index,Count,Loop
+	/*Sprite*/			[_ammoModelP3D,1,0,1,0],"", // File,Ntieth,Index,Count,Loop
 	/*Type*/			"spaceObject",
 	/*TimerSeconds*/	0.51,
 	/*LifetimeSeconds*/	1,
 	/*Position*/		[0,0,0],
 	/*MoveVelocity*/	_relativeVelocity,
-	/*Simulation*/		random 1, 10, 0.0139253, 0.13,//rotationVel,weight,volume,rubbing
+	/*Simulation*/		random 1, 10, 0.0139253, 0.36,//rotationVel,weight,volume,rubbing
 	/*Scale*/			[0.9],
-	/*Color*/			[[1,1,1,1],[1,1,1,1]],
+	/*Color*/			[[1,1,1,1]],
 	/*AnimSpeed*/		[1,1],
 	/*randDirPeriod*/	0.4,
 	/*randDirIntesity*/	0.01,
@@ -29,10 +30,17 @@ _popOutMagazine setParticleParams
 	/*Follow*/			"",
 	/*Angle*/			0,
 	/*onSurface*/		false,
-	/*bounceOnSurface*/	0.1,
+	/*bounceOnSurface*/	-1,   /// this means no collision with ground
 	/*emissiveColor*/	[[0,0,0,0]]
 	/**3D Array Vector dir DEV BRANCH ONLY!!!!!!! wont be available until 1.93@stable */
 ];
+/* doesn't work...can't use hiddenSelectionTextures...
+if !(_hiddenTexture isEqualTo []) then { 
+	_popOutMagazine setObjectMaterial [0, "\A3\Structures_F_Mark\VR\Targets\Data\VR_Target_MBT_01_cannon_INDEP.rvmat"];
+	_test = _hiddenTexture # 0;
+	_popOutMagazine setObjectTextureGlobal [0, _test];
+};
+*/
 private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1", "granat"];
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
 _popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
