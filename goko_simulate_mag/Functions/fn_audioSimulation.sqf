@@ -7,6 +7,7 @@
  *	uses variable pitch and randomized samples for authentic simulation
 */
 
+
 params ["_unit", "_soldierFeetPos"];
 
 private _SoundSamples = selectRandom
