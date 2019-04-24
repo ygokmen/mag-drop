@@ -1,5 +1,5 @@
 /* 
- *	Goko Mag Drop add-on v1.25 for ARMA3 STEAM STABLE BRANCH
+ *	Goko Mag Drop add-on v1.26 for ARMA3 STEAM STABLE BRANCH
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
@@ -75,8 +75,4 @@ if (_bModelNeedsTilting) then
 		true, 				//follow terrain inclination
 		true				//forceSuperSimpleObject
 	] call BIS_fnc_createSimpleObject;
-
 };
-
-/// emit sound effect at position
-[_unit, _adjustPos] call GSM_fnc_audioSimulation;
