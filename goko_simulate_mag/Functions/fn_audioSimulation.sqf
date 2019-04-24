@@ -4,7 +4,7 @@
  *	Repo: github.com/the0utsider/mag-drop
  *	
  *	plays 3D sound effect in the world for dropped item
- *	uses variable pitch and randomized samples for authentic simulation
+ *	uses randomized pitch & samples for authentic simulation
 */
 
 
