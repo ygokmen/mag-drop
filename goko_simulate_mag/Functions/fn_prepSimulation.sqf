@@ -8,6 +8,7 @@
 */
 
 params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
+
 /// coming from waitAndExec, check if unit still exist
 if (!alive _unit) exitwith {};
 /// magazine model getter method. TODO: Improve this getter for better compatibility
@@ -16,17 +17,21 @@ if (!alive _unit) exitwith {};
 private _getMagazineAuthor = getText(configfile >> "CfgMagazines" >> _magazine >> "author");
 private _getMagazineCfgModelName = getText(configfile >> "CfgMagazines" >> _magazine >> "model");
 private _getMagazineCfgModelNameSpecial = getText(configfile >> "CfgMagazines" >> _magazine >> "modelSpecial");
+private _getHiddenTexture = getArray (configfile >> "CfgMagazines" >> _magazine >> "hiddenSelectionsTextures");
+
 /// initialize local variables with defaults
 private _bModelNeedsTilting = false;
 private _foundMagazineP3D = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d";
 private _getModel = "";
+
 ///
 if !(_getMagazineAuthor in (GSM_option_nonCompatList splitString "**")) then 
 {
 	/// models in nameSpecial string have different rotation, they will need custom formula
-	switch _getMagazineCfgModelNameSpecial do 
+	switch true do 
 	{
-		case "" : {_getModel = _getMagazineCfgModelName;};
+		case (_getMagazineCfgModelNameSpecial isEqualTo "") : {_getModel = _getMagazineCfgModelName;};
+		case (_getMagazineAuthor isEqualTo "Red Hammer Studios") : {_getModel = _getMagazineCfgModelName;};
 		default {_getModel = _getMagazineCfgModelNameSpecial; _bModelNeedsTilting = true;};
 	};
 
@@ -63,14 +68,16 @@ if (isPlayer _unit) then {
 		_unit,
 		_finalVelocity,
 		_foundMagazineP3D,
-		_existingAttachedObjects
+		_existingAttachedObjects,
+		_getHiddenTexture
 	] remoteExecCall ["GSM_fnc_particle3D", 0, false];
 } else {
 	[
 		_unit,
 		_finalVelocity,
 		_foundMagazineP3D,
-		_existingAttachedObjects
+		_existingAttachedObjects,
+		_getHiddenTexture
 	] call GSM_fnc_particle3D;
 };
 
@@ -82,7 +89,8 @@ if (isPlayer _unit) then {
 	[
 		_unit,
 		_foundMagazineP3D,
-		_bModelNeedsTilting
+		_bModelNeedsTilting,
+		_getHiddenTexture
 	], 
 	0.64
 ] call CBA_fnc_waitAndExecute;
