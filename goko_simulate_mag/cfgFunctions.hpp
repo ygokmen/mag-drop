@@ -12,8 +12,11 @@ class CfgFunctions
 		class eventhandler
 		{
 			file = "goko_simulate_mag\functions";
-			class detectReload {};
-			class prepSimulation {};
+
+			//class detectReload {};
+			//class prepSimulation {};
+			class prepSimHandgun {};
+			class prepSimRifle {};
 		};
 		class audio
 		{

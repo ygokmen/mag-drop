@@ -12,7 +12,8 @@ class CfgWeapons
 		{
 			class GSM_popMagRifle
 			{
-				fired	= "_this call GSM_fnc_detectReload";
+				//fired	= "_this call GSM_fnc_detectReload";
+				reload	= "_this call GSM_fnc_prepSimRifle";
 			}
 		};
 	};
@@ -26,9 +27,10 @@ class CfgWeapons
 		// inheriting Eventhandlers class for better modcross compatibility
 		class Eventhandlers: Eventhandlers 
 		{
-			class GSM_popMagPistol
+			class GSM_popMagHandgun
 			{
-				fired	= "_this call GSM_fnc_detectReload";
+				//fired	= "_this call GSM_fnc_detectReload";
+				reload	= "_this call GSM_fnc_prepSimHandgun";
 			}
 			
 		};
