@@ -74,6 +74,7 @@ if (isPlayer _unit) then {
 		_foundMagazineP3D,
 		_bModelNeedsTilting
 	], 
-	0.6 // free fall timing of an object 170cm (arm-shoulder) above ground.
+	0.6 /* free fall timing of an object 170cm (arm-shoulder) above ground.
+		http://ambrsoft.com/CalcPhysics/acceleration/acceleration.htm */
 ] call CBA_fnc_waitAndExecute;
 
