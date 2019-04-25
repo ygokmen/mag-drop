@@ -20,7 +20,7 @@ if (_bOutofAmmo) exitWith {};
 
 if (GSM_option_bShowMagAuthor) exitWith {
 	systemChat "GSM debugging enabled, leaving scripted simulation...";
-	["WARNING: debugging enabled", 3, 1.5, [1,0,0,0.8],false] spawn bis_fnc_wlsmoothtext;
+	["WARNING: debugging enabled", 3, 1.5, [0.75,0.75,0,0.8],true] spawn bis_fnc_wlsmoothtext;
 };
 
 /// TODO: use unscheduled muzzle 'reload' EH when available @A3 stable branch
@@ -51,7 +51,7 @@ _null = _this spawn
 			_projectile, 
 			_gunner
 		], 
-		0.4 + random 0.4
+		(0.4 + random 0.3)
 		// TODO: can we find a better calculation for reload animation length?
 	] call CBA_fnc_waitAndExecute;
 };

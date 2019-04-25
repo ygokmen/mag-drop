@@ -30,14 +30,14 @@ GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatLi
 		params ["_list"];
 		private _createArray = _list splitString "**";
 		systemChat ":: Goko Simulate Mag :: Compatibility list updated!";
-		hint Format ["Generic model will be used for: %1 \n magazine authors.", _createArray];
+		hint Format ["'Generic model' will be used for: %1 \n magazine authors.", _createArray];
 	}
 ] call CBA_Settings_fnc_init;
 
 [
 	"GSM_option_bShowMagAuthor",
 	"CHECKBOX",
-	["Show mag/Copy to clipboard","Automated solution to get mag author from config.\nStep1: Enable setting, reload problematic magazine you want to reveal.\nStep2: Magazine's author will be shown and copied to clipboard.\nFound magazine model is also created after reload for testing.\n!!!DO NOT FORGET TO DISABLE THIS SETTING AFTERWARDS!!!"],
+	["Show mag/Copy to clipboard","Automated solution to get mag author from config.\nStep1: Enable setting, reload problematic magazine you want to reveal.\nStep2: Magazine's author will be shown and copied to clipboard.\nFound magazine model is also created after reload for testing."],
 	["Goko Simulate Mag Options", "Debugging"],
 	false,
 	false,

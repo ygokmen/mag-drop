@@ -38,7 +38,7 @@ playsound3d
 	25						// sound range in meters
 ];
 
-/// place simple object (synched with particle3D disappearing)
+/// place simple object (time delay synched with particle3D disappearance)
 [
 	{	
 		_this call GSM_fnc_transformSimpleObject;

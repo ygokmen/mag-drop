@@ -9,8 +9,7 @@
 
 params ["_unit", "_ammoModelP3D", "_cachedAttachToCount"];
 
-/// velocity to pass on magazine: calculate forward vector of actor 
-//  and bump it a little if unit moving so particle can drop in front of unit
+/// velocity to pass on magazine particle
 private _randomizeVector = [-2 + random 4, -2 + random 4, 0];
 private _forwardVelocity = (_unit weaponDirection currentWeapon _unit) vectorMultiply 3;
 private _finalVelocity = if !(velocityModelSpace _unit # 1 isEqualTo 0) then
@@ -43,7 +42,7 @@ _popOutMagazine setParticleParams
 	/*onSurface*/		false,
 	/*bounceOnSurface*/	0.2,
 	/*emissiveColor*/	[[0,0,0,0]]
-	/**3D Array Vector dir DEV BRANCH ONLY!!!!!!! wont be available until 1.93@stable */
+	/*initial direction 3D Vector --wont be available until 1.93@stable */
 ];
 
 private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1", "granat"];

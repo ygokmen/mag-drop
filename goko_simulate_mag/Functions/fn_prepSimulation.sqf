@@ -64,7 +64,7 @@ if (isPlayer _unit) then {
 };
 
 /// function with global commands in it, pass it via cba WaE
-//	emit sound effect at position (triggers Transform function later)
+//	emit sound effect at position (triggers Transform function within)
 [
 	{	
 		_this call GSM_fnc_audioSimulation;
@@ -74,6 +74,6 @@ if (isPlayer _unit) then {
 		_foundMagazineP3D,
 		_bModelNeedsTilting
 	], 
-	0.6
+	0.6 // free fall timing of an object 170cm (arm-shoulder) above ground.
 ] call CBA_fnc_waitAndExecute;
 
