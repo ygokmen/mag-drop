@@ -23,7 +23,7 @@ if (GSM_option_bShowMagAuthor) exitWith {
 	["WARNING: debugging enabled", 3, 1.5, [0.75,0.75,0,0.8],true] spawn bis_fnc_wlsmoothtext;
 };
 
-/// TODO: use unscheduled muzzle 'reload' EH when available @A3 stable branch
+/// TODO:use unscheduled muzzle 'reload' EH when available @A3 stable branch
 _null = _this spawn 
 {
 	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
