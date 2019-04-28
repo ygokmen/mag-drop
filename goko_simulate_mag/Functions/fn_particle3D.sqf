@@ -7,17 +7,18 @@
  *	
 */
 
-params ["_unit", "_ammoModelP3D", "_cachedAttachToCount"];
+params ["_unit", "_ammoModelP3D", "_cachedAttachToCount", "_weaponKind"];
 
 /// velocity to pass on magazine particle
-private _randomizeVector = [-2 + random 4, -2 + random 4, 0];
-private _forwardVelocity = (_unit weaponDirection currentWeapon _unit) vectorMultiply 3;
+private _randomizeVector = [0.45 + random -0.9, 0.45 + random -0.9, 0];
+private _forwardVelocity = (_unit weaponDirection currentWeapon _unit) vectorMultiply 0.2;
 private _finalVelocity = if !(velocityModelSpace _unit # 1 isEqualTo 0) then
 {
 	velocity _unit;
 } else {
-	vectorNormalized (_forwardVelocity vectorAdd _randomizeVector);
+	_forwardVelocity vectorAdd _randomizeVector;
 };
+_finalVelocity set [2, 0];	//neutralize Z for free fall
 
 /// attach a particle source at hands of unit and spawn a magazine model with physics simulation
 private _popOutMagazine = "#particleSource" createVehicleLocal (getPosATL _unit);
@@ -40,14 +41,40 @@ _popOutMagazine setParticleParams
 	/*Follow*/			"",
 	/*Angle*/			0,
 	/*onSurface*/		false,
-	/*bounceOnSurface*/	0.2,
+	/*bounceOnSurface*/	0.24,
 	/*emissiveColor*/	[[0,0,0,0]]
-	/*initial direction 3D Vector --wont be available until 1.93@stable */
+	/*initial dir		[0,0,0]  */
 ];
 
-private _modelMemoryPoints = selectRandom ["lwrist", "rwrist", "rightHandmiddle1", "granat"];
+private _memoryPointWithOffset = [];
+switch (_weaponKind) do {
+	case "Handgun" : {
+		_memoryPointWithOffset = selectRandom
+		[
+			[[-0.05, -0.05, -0.01], "LeftHand"],
+			[[-0.05, -0.08, -0.04], "RightHand"]
+		];
+	};
+	case "Rifle" : {
+		_memoryPointWithOffset = selectRandom
+		[
+			[[-0.05, 0.04, -0.04], "RightHand"],
+			[[-0.05, -0.01, 0.03], "LeftHand"]
+		];
+	};
+};
+/*
+private _memoryPointWithOffset = selectRandomWeighted [
+	[[0.05, 0.08, 0.02], "LWRIST"], 0.1,
+	[[-0.05, 0.08, 0.02], "RWRIST"], 0.2,
+	[[-0.06, -0.1, -0.04], "RightHand"], 0.3,
+	[[-0.06, 0.03, -0.04], "RightHand"], 0.4,
+	[[0.06, -0.1, -0.04], "LeftHand"], 0.3
+];
+*/
+private _modelMemoryPoint = _memoryPointWithOffset;
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
-_popOutMagazine attachTo [_unit, [0,0,0], _modelMemoryPoints];
+_popOutMagazine attachTo [_unit, _modelMemoryPoint#0, _modelMemoryPoint#1];
 
 /// detach and get rid of particle source. NOTE: particle source will stay there, don't matter lifetime or interval of spawned particles.
 /// Array count from previous function represents last added attached array object above which is particle source.

@@ -4,11 +4,9 @@
  *	Repo: github.com/the0utsider/mag-drop
  *
  *	Setting file using Extended PreInit EventHandlers
- *	Allows user to manipulate ignored list. 
  *	
 */
 
-GSM_option_bShowMagAuthor = profileNamespace getVariable ["GSM_option_bShowMagAuthor", false];
 GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatList", 
 	"
 		BW-Mod**
@@ -16,12 +14,13 @@ GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatLi
 		Example Author Name**
 	"
 ];
+GSM_option_bShowMagAuthor = profileNamespace getVariable ["GSM_option_bShowMagAuthor", false];
 
 [
 	"GSM_option_nonCompatList",
 	"EDITBOX",
 	["Compatibility List/Disabled authors","Fix incompatible magazines: GSM will use 'generic rifle model' for author(s) in this list.\nUse ** (double asterisk) between each name instead of comma to seperate.\nCAUTION: Case sensitive:'bOheMia inTeracTive' will not work, 'Bohemia Interactive' will.\nOnly use 'author name' extracted from magazine config."],
-	["Goko Simulate Mag Options", "Compatibility setting"],
+	["Goko Simulate Mag Options", "Compatibility"],
 	"BW-Mod**Bohemia Interactive**Example Author Name**",
 	false,
 	{
@@ -38,7 +37,7 @@ GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatLi
 	"GSM_option_bShowMagAuthor",
 	"CHECKBOX",
 	["Show mag/Copy to clipboard","Automated solution to get mag author from config.\nStep1: Enable setting, reload problematic magazine you want to reveal.\nStep2: Magazine's author will be shown and copied to clipboard.\nFound magazine model is also created after reload for testing."],
-	["Goko Simulate Mag Options", "Debugging"],
+	["Goko Simulate Mag Options", "Compatibility"],
 	false,
 	false,
 	{
@@ -47,7 +46,7 @@ GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatLi
 			if (GSM_option_bShowMagAuthor) then 
 			{
 				params ["_unit", "_weapon", "_muzzle", "_newmag", ["_oldmag", ["","","",""]]];
-				if ( "" in [_muzzle, _weapon, _newmag#0]) exitWith {};
+				if ( "" in [_muzzle, _weapon, _newmag#0] && {currentWeapon player isEqualTo secondaryWeapon player}) exitWith {};
 
 				private _getMagAuthor = getText(configfile >> "CfgMagazines" >> _newmag#0 >> "author");
 				private _magAuthor = ["'", _getMagAuthor, "'"] joinString "";
@@ -60,7 +59,8 @@ GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatLi
 				copyToClipboard _prepString;
 				systemchat Format ["%1 copied to clipboard.", _prepString];
 				
-				[player, "", "", "", "", _newmag#0, "", ""] call GSM_fnc_prepSimulation;
+				[player, "", "", _newmag#0, ""] call GSM_fnc_prepSimulation;
+
 			} else {
 				player removeEventHandler [_thisType, _thisID];
 				["GSM system messages shut down", 3, 5, [1,1,1,0.4],true] spawn bis_fnc_wlsmoothtext;
@@ -69,3 +69,4 @@ GSM_option_nonCompatList = profileNamespace getVariable ["GSM_option_nonCompatLi
 		}, time] call CBA_fnc_addBISEventHandler;
 	}
 ] call CBA_Settings_fnc_init;
+

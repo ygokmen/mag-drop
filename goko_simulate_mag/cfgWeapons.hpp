@@ -1,3 +1,5 @@
+//["rhs_weap_lmg_minimi_railed","rhs_weap_lmg_minimipara","rhs_weap_saw_base","Rifle_Base_F","Rifle","RifleCore","Default"]
+
 class CfgWeapons
 {
 	class RifleCore;
@@ -13,8 +15,8 @@ class CfgWeapons
 			class GSM_popMagRifle
 			{
 				//fired	= "_this call GSM_fnc_detectReload";
-				reload	= "_this call GSM_fnc_prepSimRifle";
-			}
+				reload	= "(_this pushBackUnique 'Rifle'); _this call GSM_fnc_detectEmptyMag;";
+			};
 		};
 	};
 	class PistolCore;
@@ -30,9 +32,8 @@ class CfgWeapons
 			class GSM_popMagHandgun
 			{
 				//fired	= "_this call GSM_fnc_detectReload";
-				reload	= "_this call GSM_fnc_prepSimHandgun";
-			}
-			
+				reload	= "(_this pushBackUnique 'Handgun'); _this call GSM_fnc_detectEmptyMag;";
+			};
 		};
 	};
 };
