@@ -8,16 +8,16 @@
  *	
 */
 
-private _particlePosASL = _this;
-private _searchForEntity = (_particlePosASL nearEntities ["CAManBase", 2.5]);
+private _particlePosAGL = _this;
+private _searchForEntity = (_particlePosAGL nearEntities ["CAManBase", 2.5]);
 if (_searchForEntity isEqualTo []) exitWith {};
 
 if (count _searchForEntity isEqualTo 1) then 
 {
-	_searchForEntity # 0 setVariable ["GMS_var_particlePos", _particlePosASL];
+	_searchForEntity # 0 setVariable ["GMS_var_particlePos", _particlePosAGL];
 
 } else {
 	{
-	_x setVariable ["GMS_var_particlePos", _particlePosASL];
+	_x setVariable ["GMS_var_particlePos", _particlePosAGL];
 	} forEach _searchForEntity;
 };
