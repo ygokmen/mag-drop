@@ -3,27 +3,28 @@ class CfgFunctions
 	class Goko_Simulate_Mag
 	{
 		tag = "GSM";
-		class particle
+		class init
 		{
 			file = "goko_simulate_mag\functions";
-			class particle3D {};
-			class transformSimpleObject {};
+			class CBASettings {};
 		};
 		class eventhandler
 		{
 			file = "goko_simulate_mag\functions";
-			class detectReload {};
+			class detectEmptyMag {};
 			class prepSimulation {};
+			class getGenericMag {};
 		};
 		class audio
 		{
 			file = "goko_simulate_mag\functions";
 			class AudioSimulation {};
 		};
-		class init
+		class particle
 		{
 			file = "goko_simulate_mag\functions";
-			class CBASettings {};
+			class particle3D {};
+			class transformSimpleObject {};
 		};
 	};
 };

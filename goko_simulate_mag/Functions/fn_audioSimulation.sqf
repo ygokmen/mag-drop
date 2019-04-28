@@ -30,23 +30,23 @@ private _SoundSamples = selectRandom
 playsound3d 
 [
 	_SoundSamples, 
-	_unit,				// this is ignored since position ASL provided.
+	_unit,					// this is ignored since position ASL provided.
 	false,					// buggy
 	_manualAdjustPos,		// position asl
 	1.2,					// volume dB
-	0.9 + random 0.6,		// sound pitch
+	0.85 + random 0.4,		// sound pitch
 	25						// sound range in meters
 ];
 
 /// place simple object (time delay synched with particle3D disappearance)
 [
-	{	
+	{
 		_this call GSM_fnc_transformSimpleObject;
-	}, 
+	},
 	[
 		_unit,
 		_foundMagazineP3D,
 		_bModelNeedsTilting
-	], 
+	],
 	0.5
 ] call CBA_fnc_waitAndExecute;
