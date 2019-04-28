@@ -3,7 +3,7 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	Setting file using Extended PreInit EventHandlers
+ *	Setting file using Extended PreInit EventHandler
  *	
 */
 

@@ -3,7 +3,7 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	
+ *	getter for generic mag models @ compatibility list
  *	
 */
 
@@ -31,27 +31,6 @@ switch true do {
 call compile _getGeneric;
 
 /*
-
-	case "Rifle" : {
-		private _cupRifleMag = "\CUP\Weapons\CUP_Weapons_Ammunition\magazines_proxy\CUP_mag_17Rnd_G17.p3d";
-		private _rhsUsRifleMag = "\rhsusf\addons\rhsusf_weapons\magazines\rhs_15rnd_m9_mag";
-		private _rhsRusRifleMag = "\rhsafrf\addons\rhs_weapons2\magazines\rhs_9x19_20mag";
-
-		private _hasCUPWeapons = (isClass(configfile >> "CfgPatches" >> "CUP_Weapons_Glock17"));
-		private _hasRHSUSAF = (isClass(configfile >> "CfgPatches" >> "rhsusf_main"));
-		private _hasRHSAFRF = (isClass(configfile >> "CfgPatches" >> "rhs_main"));
-
-		switch true do {
-			case _hasCUPWeapons : {_genericMagModel = _cupRifleMag;};
-			case _hasRHSUSAF : {_genericMagModel = _rhsUsRifleMag;};
-			case _hasRHSAFRF : {_genericMagModel = _rhsRusRifleMag;};
-			case default {_genericMagModel = "\A3\Structures_F_EPB\Items\Military\Magazine_rifle_F.p3d";};
-		};
-		_genericMagModel;
-	};
-
-
-
 
 private _rhsUsSrifleMag = "\rhsusf\addons\rhsusf_weapons\magazines\rhs_50cal_box_mag";
 private _cupSrifleMag = "\CUP\Weapons\CUP_Weapons_Ammunition\magazines\CUP_mag_5Rnd_KSVK.p3d";

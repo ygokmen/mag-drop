@@ -63,15 +63,7 @@ switch (_weaponKind) do {
 		];
 	};
 };
-/*
-private _memoryPointWithOffset = selectRandomWeighted [
-	[[0.05, 0.08, 0.02], "LWRIST"], 0.1,
-	[[-0.05, 0.08, 0.02], "RWRIST"], 0.2,
-	[[-0.06, -0.1, -0.04], "RightHand"], 0.3,
-	[[-0.06, 0.03, -0.04], "RightHand"], 0.4,
-	[[0.06, -0.1, -0.04], "LeftHand"], 0.3
-];
-*/
+
 private _modelMemoryPoint = _memoryPointWithOffset;
 _popOutMagazine setDropInterval 7777; // man is five, devil is six, god is seven!!11!1!
 _popOutMagazine attachTo [_unit, _modelMemoryPoint#0, _modelMemoryPoint#1];

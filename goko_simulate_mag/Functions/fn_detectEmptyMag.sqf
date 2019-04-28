@@ -3,8 +3,7 @@
  *	Author: cgökmen 'the0utsider'
  *	Repo: github.com/the0utsider/mag-drop
  *
- *	Main hook using muzzle fired EH since muzzle reload EH do not exist (yet) on stable branch
- *	Detect reload, pass required params
+ *	Detect null reload, pass required params
  *
 */
 
